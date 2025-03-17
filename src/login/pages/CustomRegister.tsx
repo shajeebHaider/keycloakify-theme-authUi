@@ -1,44 +1,49 @@
-import { Box, Text, TextInput, FormControl, Link, Button } from "@primer/react";
-import type { JSX } from "keycloakify/tools/JSX";
+import { Box, TextInput, FormControl, Link, Button, Text } from "@primer/react";
+//import type { JSX } from "keycloakify/tools/JSX";
 
 import { useState } from "react";
-import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
+//import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
-import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
-import { clsx } from "keycloakify/tools/clsx";
-import type { UserProfileFormFieldsProps } from "keycloakify/login/UserProfileFormFieldsProps";
-import type { PageProps } from "keycloakify/login/pages/PageProps";
+//import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
+//import { clsx } from "keycloakify/tools/clsx";
+//import type { UserProfileFormFieldsProps } from "keycloakify/login/UserProfileFormFieldsProps";
+//import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
+import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 
-type RegisterProps = PageProps<Extract<KcContext, { pageId: "register.ftl" }>, I18n> & {
-    UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;
-    doMakeUserConfirmPassword: boolean;
+type PageProps = {
+    kcContext: Extract<KcContext, { pageId: "register.ftl" }>;
+    i18n: I18n;
 };
 
-export default function CustomRegister(props: RegisterProps) {
+export default function CustomRegister(props: PageProps) {
     const { kcContext, i18n } = props;
 
-    const { kcClsx } = getKcClsx({
-        doUseDefaultCss,
-        classes
-    });
-
-    const { messageHeader, url, messagesPerField, termsAcceptanceRequired } = kcContext;
+    const { messageHeader, url, messagesPerField } = kcContext;
+    //const [isFormSubmittable, setIsFormSubmittable] = useState(false);
 
     const { msg, msgStr } = i18n;
 
-    const [isFormSubmittable, setIsFormSubmittable] = useState(false);
-    const [areTermsAccepted, setAreTermsAccepted] = useState(false);
+    const {
+        formState: { formFieldStates, isFormSubmittable },
+        dispatchFormAction
+    } = useUserProfileForm({
+        kcContext,
+        i18n,
+        doMakeUserConfirmPassword: false
+    });
+
+    console.log({ formFieldStates });
 
     return (
         <>
             <Box
                 as="form"
-                onSubmit={() => {
-                    setIsFormSubmittable(true);
-                    return true;
-                }}
+                // onSubmit={() => {
+                //     setIsFormSubmittable(true);
+                //     return true;
+                // }}
                 bg="canvas.subtle"
                 display="flex"
                 flexDirection="column"
@@ -52,40 +57,89 @@ export default function CustomRegister(props: RegisterProps) {
                 method="post"
             >
                 <FormControl sx={{ mb: 3 }}>
-                    <FormControl.Label>Email</FormControl.Label>
-                    <TextInput aria-invalid={errors.email ? "true" : "false"} block type="email" {...register("email")} />
-                    {errors.email && <FormControl.Validation variant="error">{errors.email.message}</FormControl.Validation>}
+                    <FormControl.Label required htmlFor="firstName">
+                        {msg("firstName")}
+                    </FormControl.Label>
+                    <TextInput aria-invalid={messagesPerField.existsError("firstName")} name="firstName" block />
+                    {messagesPerField.existsError("firstName") && (
+                        <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("firstName"))}</FormControl.Validation>
+                    )}
                 </FormControl>
 
                 <FormControl sx={{ mb: 3 }}>
-                    <FormControl.Label>Password</FormControl.Label>
-                    <TextInput aria-invalid={errors.password ? "true" : "false"} block type="password" {...register("password")} />
-                    {errors.password && <FormControl.Validation variant="error">{errors.password.message}</FormControl.Validation>}
-                    <Text fontSize={1} color="fg.muted">
-                        Password should be at least 8 characters, include a number and a lowercase letter.
-                    </Text>
+                    <FormControl.Label required htmlFor="lastName">
+                        {msg("lastName")}
+                    </FormControl.Label>
+                    <TextInput aria-invalid={messagesPerField.existsError("lastame")} type="lastName" name="lastName" block />
+                    {messagesPerField.existsError("lastName") && (
+                        <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("lastName"))}</FormControl.Validation>
+                    )}
                 </FormControl>
 
                 <FormControl sx={{ mb: 3 }}>
-                    <FormControl.Label>Username</FormControl.Label>
-                    <TextInput aria-invalid={errors.username ? "true" : "false"} block {...register("username")} />
-                    {errors.username && <FormControl.Validation variant="error">{errors.username.message}</FormControl.Validation>}
-                    <Text fontSize={1} color="fg.muted">
-                        Username may only contain alphanumeric characters or single hyphens and cannot begin or end with a hyphen.
-                    </Text>
+                    <FormControl.Label required htmlFor="email">
+                        {msg("email")}
+                    </FormControl.Label>
+                    <TextInput aria-invalid={messagesPerField.existsError("email")} type="email" name="email" autoComplete="email" block />
+                    {messagesPerField.existsError("email") && (
+                        <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("email"))}</FormControl.Validation>
+                    )}
                 </FormControl>
 
+                <FormControl sx={{ mb: 3 }}>
+                    <FormControl.Label required htmlFor="password">
+                        {msg("password")}
+                    </FormControl.Label>
+                    <TextInput
+                        aria-invalid={messagesPerField.existsError("password")}
+                        type="password"
+                        name="password"
+                        autoComplete="new-password"
+                        block
+                    />
+                    {messagesPerField.existsError("password") && (
+                        <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("password"))}</FormControl.Validation>
+                    )}
+                </FormControl>
+
+                <FormControl sx={{ mb: 3 }}>
+                    <FormControl.Label required htmlFor="password-confirm">
+                        {msg("passwordConfirm")}
+                    </FormControl.Label>
+                    <TextInput
+                        aria-invalid={messagesPerField.existsError("password-confirm")}
+                        type="password"
+                        name="password-confirm"
+                        autoComplete="new-password"
+                        block
+                    />
+                    {messagesPerField.existsError("password-confirm") && (
+                        <FormControl.Validation variant="error">
+                            {kcSanitize(messagesPerField.getFirstError("password-confirm"))}
+                        </FormControl.Validation>
+                    )}
+                </FormControl>
+                <FormControl sx={{ mb: 3 }}>
+                    <FormControl.Label htmlFor="username"></FormControl.Label>
+                    <TextInput
+                        aria-invalid={messagesPerField.existsError("username", "password")}
+                        block
+                        type="email"
+                        name="username"
+                        autoComplete="username"
+                    />
+                    {messagesPerField.existsError("username", "password") && (
+                        <FormControl.Validation variant="error">
+                            {kcSanitize(messagesPerField.getFirstError("username", "password"))}
+                        </FormControl.Validation>
+                    )}
+                </FormControl>
+
+                <input type="hidden" id="id-hidden-input" />
                 <Button variant="primary" type="submit" block>
-                    Continue
+                    {msgStr("doRegister")}
                 </Button>
-                <Text fontSize={1} textAlign="center" mt={2}>
-                    Already have an account?
-                    <Link as={RouterLink} to={paths.login}>
-                        Sign In
-                    </Link>
-                </Text>
             </Box>
-
             <Box width="100%" maxWidth="400px" textAlign="center">
                 <Text fontSize={1}>
                     By creating an account, you agree to the <Link href="#">Terms of Service</Link>. See the <Link href="#">Privacy Policy</Link> for

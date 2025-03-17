@@ -9,10 +9,9 @@ import CustomLogin from "./pages/CustomLogin";
 import CustomLoginPassword from "./pages/CustomLoginPassword";
 import CustomLoginUsername from "./pages/CustomLoginUsername";
 import CustomLoginResetPassword from "./pages/CustomLoginResetPassword";
+import CustomRegister from "./pages/CustomRegister";
 // import Login from "./pages/Login";
-const UserProfileFormFields = lazy(
-    () => import("keycloakify/login/UserProfileFormFields")
-);
+const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
 
 const doMakeUserConfirmPassword = true;
 
@@ -67,6 +66,12 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                     i18n={i18n}
                                     kcContext={kcContext}
                                 />
+                            </Layout>
+                        );
+                    case "register.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} title="Sign Up">
+                                <CustomRegister i18n={i18n} kcContext={kcContext} />
                             </Layout>
                         );
                     default:
