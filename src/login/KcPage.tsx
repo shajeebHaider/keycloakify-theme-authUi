@@ -10,6 +10,7 @@ import CustomLoginPassword from "./pages/CustomLoginPassword";
 import CustomLoginUsername from "./pages/CustomLoginUsername";
 import CustomLoginResetPassword from "./pages/CustomLoginResetPassword";
 import CustomRegister from "./pages/CustomRegister";
+import CustomLoginUpdatePassword from "./pages/CustomLoginUpdatePassword";
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
 
@@ -72,6 +73,19 @@ export default function KcPage(props: { kcContext: KcContext }) {
                         return (
                             <Layout kcContext={kcContext} i18n={i18n} title="Sign Up">
                                 <CustomRegister i18n={i18n} kcContext={kcContext} />
+                            </Layout>
+                        );
+                    case "login-update-password.ftl":
+                        return (
+                            <Layout
+                                kcContext={kcContext}
+                                i18n={i18n}
+                                title="Update Password"
+                            >
+                                <CustomLoginUpdatePassword
+                                    i18n={i18n}
+                                    kcContext={kcContext}
+                                />
                             </Layout>
                         );
                     default:
