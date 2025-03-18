@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Box, Text, TextInput, FormControl, Link, Button, Stack } from "@primer/react";
 import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
@@ -12,7 +13,8 @@ type PageProps = {
 const CustomLoginPassword = (props: PageProps) => {
     const { kcContext, i18n } = props;
 
-    const { url, realm, messagesPerField } = kcContext;
+    const { url, realm, social, messagesPerField } = kcContext;
+    console.log({ kcContext });
 
     const { msg, msgStr } = i18n;
 
@@ -84,9 +86,11 @@ const CustomLoginPassword = (props: PageProps) => {
                 p={3}
                 borderRadius={7}
             >
-                <Text fontSize={1} mb={2}>
-                    <Link href="#">Sign in with Google</Link>
-                </Text>
+                {realm.password && social?.providers !== undefined && social.providers.length !== 0 && (
+                    <Text fontSize={1} mb={2}>
+                        <Link href={social.providers.find(p => p.providerId === "google")?.loginUrl}>Sign in with Google</Link>
+                    </Text>
+                )}
                 <Text fontSize={1}>
                     New to OneDesk? <Link href={url.registrationUrl}>{msg("doRegister")}</Link>
                 </Text>

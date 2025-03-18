@@ -22,6 +22,8 @@ export default function Register(props: RegisterProps) {
         classes
     });
 
+    console.log({ kcContext });
+
     const { messageHeader, url, messagesPerField, recaptchaRequired, recaptchaVisible, recaptchaSiteKey, recaptchaAction, termsAcceptanceRequired } =
         kcContext;
 

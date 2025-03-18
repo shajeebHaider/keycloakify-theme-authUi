@@ -13,11 +13,7 @@ type LayoutProps = Omit<
     title: string;
 };
 
-export const Layout = ({
-    children,
-    kcContext,
-    title
-}: PropsWithChildren<LayoutProps>) => {
+export const Layout = ({ children, title }: PropsWithChildren<LayoutProps>) => {
     return (
         <ThemeProvider theme={customTheme}>
             <BaseStyles>

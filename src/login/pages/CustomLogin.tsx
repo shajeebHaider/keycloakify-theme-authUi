@@ -14,8 +14,7 @@ const CustomLogin = (props: PageProps) => {
 
     const { social, realm, url, usernameHidden, login, auth, messagesPerField } = kcContext;
 
-    console.log({ social });
-
+    console.log({ kcContext });
     const { msg, msgStr } = i18n;
 
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
@@ -121,9 +120,12 @@ const CustomLogin = (props: PageProps) => {
                 p={3}
                 borderRadius={7}
             >
-                <Text fontSize={1} mb={2}>
-                    <Link href="#">Sign in with Google</Link>
-                </Text>
+                {realm.password && social?.providers !== undefined && social.providers.length !== 0 && (
+                    <Text fontSize={1} mb={2}>
+                        <Link href={social.providers.find(p => p.providerId === "google")?.loginUrl}>Sign in with Google</Link>
+                    </Text>
+                )}
+
                 <Text fontSize={1}>
                     New to OneDesk? <Link href={url.registrationUrl}>{msg("doRegister")}</Link>
                 </Text>

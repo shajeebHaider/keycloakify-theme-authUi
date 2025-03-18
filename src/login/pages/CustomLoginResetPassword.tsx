@@ -12,7 +12,7 @@ const CustomLoginResetPassword = (props: PageProps) => {
     const { kcContext, i18n } = props;
 
     const { url, realm, messagesPerField } = kcContext;
-
+    console.log({ kcContext });
     const { msg } = i18n;
 
     return (

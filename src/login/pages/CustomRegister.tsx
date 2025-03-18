@@ -1,7 +1,6 @@
 import { Box, TextInput, FormControl, Link, Button, Text } from "@primer/react";
 //import type { JSX } from "keycloakify/tools/JSX";
 
-import { useState } from "react";
 //import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 //import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
@@ -11,6 +10,7 @@ import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
+// import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 
 type PageProps = {
     kcContext: Extract<KcContext, { pageId: "register.ftl" }>;
@@ -20,21 +20,20 @@ type PageProps = {
 export default function CustomRegister(props: PageProps) {
     const { kcContext, i18n } = props;
 
-    const { messageHeader, url, messagesPerField } = kcContext;
+    const { url, messagesPerField } = kcContext;
     //const [isFormSubmittable, setIsFormSubmittable] = useState(false);
 
-    const { msg, msgStr } = i18n;
+    const { msgStr, advancedMsg } = i18n;
 
     const {
-        formState: { formFieldStates, isFormSubmittable },
-        dispatchFormAction
+        formState: { formFieldStates }
     } = useUserProfileForm({
         kcContext,
         i18n,
         doMakeUserConfirmPassword: false
     });
 
-    console.log({ formFieldStates });
+    console.log({ kcContext });
 
     return (
         <>
@@ -57,10 +56,31 @@ export default function CustomRegister(props: PageProps) {
                 method="post"
             >
                 <FormControl sx={{ mb: 3 }}>
-                    <FormControl.Label required htmlFor="firstName">
-                        {msg("firstName")}
+                    <FormControl.Label htmlFor="username" required>
+                        {advancedMsg("${username}")}
                     </FormControl.Label>
-                    <TextInput aria-invalid={messagesPerField.existsError("firstName")} name="firstName" block />
+                    <TextInput
+                        aria-invalid={messagesPerField.existsError("username")}
+                        defaultValue={formFieldStates.find(f => f.attribute.name === "username")?.valueOrValues}
+                        block
+                        type="text"
+                        name="username"
+                        autoComplete="username"
+                    />
+                    {messagesPerField.existsError("username") && (
+                        <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("username"))}</FormControl.Validation>
+                    )}
+                </FormControl>
+                <FormControl sx={{ mb: 3 }}>
+                    <FormControl.Label required htmlFor="firstName">
+                        {advancedMsg("${firstName}")}
+                    </FormControl.Label>
+                    <TextInput
+                        aria-invalid={messagesPerField.existsError("firstName")}
+                        name="firstName"
+                        block
+                        defaultValue={formFieldStates.find(f => f.attribute.name === "firstName")?.valueOrValues}
+                    />
                     {messagesPerField.existsError("firstName") && (
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("firstName"))}</FormControl.Validation>
                     )}
@@ -68,9 +88,15 @@ export default function CustomRegister(props: PageProps) {
 
                 <FormControl sx={{ mb: 3 }}>
                     <FormControl.Label required htmlFor="lastName">
-                        {msg("lastName")}
+                        {advancedMsg("${lastName}")}
                     </FormControl.Label>
-                    <TextInput aria-invalid={messagesPerField.existsError("lastame")} type="lastName" name="lastName" block />
+                    <TextInput
+                        aria-invalid={messagesPerField.existsError("lastName")}
+                        type="lastName"
+                        name="lastName"
+                        defaultValue={formFieldStates.find(f => f.attribute.name === "lastName")?.valueOrValues}
+                        block
+                    />
                     {messagesPerField.existsError("lastName") && (
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("lastName"))}</FormControl.Validation>
                     )}
@@ -78,9 +104,16 @@ export default function CustomRegister(props: PageProps) {
 
                 <FormControl sx={{ mb: 3 }}>
                     <FormControl.Label required htmlFor="email">
-                        {msg("email")}
+                        {advancedMsg("${email}")}
                     </FormControl.Label>
-                    <TextInput aria-invalid={messagesPerField.existsError("email")} type="email" name="email" autoComplete="email" block />
+                    <TextInput
+                        aria-invalid={messagesPerField.existsError("email")}
+                        type="email"
+                        name="email"
+                        defaultValue={formFieldStates.find(f => f.attribute.name === "email")?.valueOrValues}
+                        autoComplete="email"
+                        block
+                    />
                     {messagesPerField.existsError("email") && (
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("email"))}</FormControl.Validation>
                     )}
@@ -88,7 +121,7 @@ export default function CustomRegister(props: PageProps) {
 
                 <FormControl sx={{ mb: 3 }}>
                     <FormControl.Label required htmlFor="password">
-                        {msg("password")}
+                        {advancedMsg("${password}")}
                     </FormControl.Label>
                     <TextInput
                         aria-invalid={messagesPerField.existsError("password")}
@@ -104,7 +137,7 @@ export default function CustomRegister(props: PageProps) {
 
                 <FormControl sx={{ mb: 3 }}>
                     <FormControl.Label required htmlFor="password-confirm">
-                        {msg("passwordConfirm")}
+                        {advancedMsg("${passwordConfirm}")}
                     </FormControl.Label>
                     <TextInput
                         aria-invalid={messagesPerField.existsError("password-confirm")}
@@ -116,21 +149,6 @@ export default function CustomRegister(props: PageProps) {
                     {messagesPerField.existsError("password-confirm") && (
                         <FormControl.Validation variant="error">
                             {kcSanitize(messagesPerField.getFirstError("password-confirm"))}
-                        </FormControl.Validation>
-                    )}
-                </FormControl>
-                <FormControl sx={{ mb: 3 }}>
-                    <FormControl.Label htmlFor="username"></FormControl.Label>
-                    <TextInput
-                        aria-invalid={messagesPerField.existsError("username", "password")}
-                        block
-                        type="email"
-                        name="username"
-                        autoComplete="username"
-                    />
-                    {messagesPerField.existsError("username", "password") && (
-                        <FormControl.Validation variant="error">
-                            {kcSanitize(messagesPerField.getFirstError("username", "password"))}
                         </FormControl.Validation>
                     )}
                 </FormControl>
