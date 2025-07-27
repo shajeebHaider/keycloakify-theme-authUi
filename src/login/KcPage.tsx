@@ -11,6 +11,8 @@ import CustomLoginUsername from "./pages/CustomLoginUsername";
 import CustomLoginResetPassword from "./pages/CustomLoginResetPassword";
 import CustomRegister from "./pages/CustomRegister";
 import CustomLoginUpdatePassword from "./pages/CustomLoginUpdatePassword";
+import logo from "../assets/logo/logo.png";
+
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
 
@@ -28,41 +30,25 @@ export default function KcPage(props: { kcContext: KcContext }) {
                 switch (kcContext.pageId) {
                     case "login.ftl":
                         return (
-                            <Layout
-                                kcContext={kcContext}
-                                i18n={i18n}
-                                title="Sign in to OneDesk"
-                            >
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomLogin i18n={i18n} kcContext={kcContext} />
                             </Layout>
                         );
                     case "login-password.ftl":
                         return (
-                            <Layout
-                                kcContext={kcContext}
-                                i18n={i18n}
-                                title="Sign in to OneDesk"
-                            >
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomLoginPassword i18n={i18n} kcContext={kcContext} />
                             </Layout>
                         );
                     case "login-username.ftl":
                         return (
-                            <Layout
-                                kcContext={kcContext}
-                                i18n={i18n}
-                                title="Sign in to OneDesk"
-                            >
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomLoginUsername i18n={i18n} kcContext={kcContext} />
                             </Layout>
                         );
                     case "login-reset-password.ftl":
                         return (
-                            <Layout
-                                kcContext={kcContext}
-                                i18n={i18n}
-                                title="Forgot Your Password?"
-                            >
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomLoginResetPassword
                                     i18n={i18n}
                                     kcContext={kcContext}
@@ -71,17 +57,13 @@ export default function KcPage(props: { kcContext: KcContext }) {
                         );
                     case "register.ftl":
                         return (
-                            <Layout kcContext={kcContext} i18n={i18n} title="Sign Up">
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomRegister i18n={i18n} kcContext={kcContext} />
                             </Layout>
                         );
                     case "login-update-password.ftl":
                         return (
-                            <Layout
-                                kcContext={kcContext}
-                                i18n={i18n}
-                                title="Update Password"
-                            >
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomLoginUpdatePassword
                                     i18n={i18n}
                                     kcContext={kcContext}

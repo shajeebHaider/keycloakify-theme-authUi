@@ -1,8 +1,9 @@
-import { Box, Text, TextInput, FormControl, Link, Button, Checkbox } from "@primer/react";
+import { Stack, Text, TextInput, FormControl, Link, Button } from "@primer/react";
 import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { useState } from "react";
+import googleIcon from "../../assets/svg/googleIcon.svg";
 
 type PageProps = {
     kcContext: Extract<KcContext, { pageId: "login-username.ftl" }>;
@@ -22,17 +23,8 @@ const CustomLoginUsername = (props: PageProps) => {
 
     return (
         <>
-            <Box
-                as="form"
-                bg="canvas.subtle"
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                width="100%"
-                maxWidth="340px"
-                p={5}
-                borderRadius={7}
-                mb={4}
+            <form
+                className="p-4 bg-bg-inset flex flex-col justify-center w-full border gap-8 rounded-2xl border-border-default"
                 onSubmit={() => {
                     setIsLoginButtonDisabled(true);
                     return true;
@@ -41,7 +33,7 @@ const CustomLoginUsername = (props: PageProps) => {
                 method="post"
             >
                 {!usernameHidden && (
-                    <FormControl sx={{ mb: 3 }}>
+                    <FormControl>
                         <FormControl.Label htmlFor="username">
                             {!realm.loginWithEmailAllowed
                                 ? msg("username")
@@ -65,39 +57,38 @@ const CustomLoginUsername = (props: PageProps) => {
                     </FormControl>
                 )}
 
-                {realm.rememberMe && !usernameHidden && (
+                {/* {realm.rememberMe && !usernameHidden && (
                     <FormControl sx={{ mb: 3 }}>
                         <Checkbox value="default" name="rememberMe" defaultChecked={!!login.rememberMe} />
                         <FormControl.Label>{msg("rememberMe")}</FormControl.Label>
                     </FormControl>
-                )}
-
-                <Button variant="primary" type="submit" block disabled={isLoginButtonDisabled}>
-                    {msgStr("doLogIn")}
-                </Button>
-            </Box>
-            <Box
-                border="1px solid"
-                borderColor="border.subtle"
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-                width="100%"
-                maxWidth="340px"
-                p={3}
-                borderRadius={7}
-            >
-                {realm.password && social?.providers !== undefined && social.providers.length !== 0 && (
-                    <Text fontSize={1} mb={2}>
-                        <Link href={social.providers.find(p => p.providerId === "google")?.loginUrl}>Sign in with Google</Link>
+                )} */}
+                <Stack gap="condensed" className="text-center!">
+                    <Button className="bg-button-rest!" variant="primary" type="submit" block disabled={isLoginButtonDisabled}>
+                        {msgStr("doLogIn")}
+                    </Button>
+                    <Text className="text-center!" size="small">
+                        or
                     </Text>
-                )}
-
-                <Text fontSize={1}>
-                    New to OneDesk? <Link href={url.registrationUrl}>{msg("doRegister")}</Link>
-                </Text>
-            </Box>
+                    <div className="relative mb-4">
+                        <img src={googleIcon} className="absolute top-1/2 left-[2px] translate-y-[-50%] w-7 h-7" />
+                        <Button
+                            as="a"
+                            href={social?.providers?.find(p => p.providerId === "google")?.loginUrl}
+                            className="flex! bg-button-rest!"
+                            variant="primary"
+                        >
+                            Sign in with Google
+                        </Button>
+                    </div>
+                    <Text size="small" className="text-center">
+                        By Clicking Sign in, I accept the <Link>terms and conditions</Link> and <Link>privacy policy</Link> by OneDesk
+                    </Text>
+                </Stack>
+            </form>
+            <Text className="w-full! text-center! flex flex-col" fontSize={1}>
+                New to OneDesk? <Link href={url.registrationUrl}>{msg("doRegister")} for free</Link>
+            </Text>
         </>
     );
 };

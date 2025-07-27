@@ -1,4 +1,4 @@
-import { Box, TextInput, FormControl, Link, Button, Text } from "@primer/react";
+import { Heading, TextInput, FormControl, Link, Button, Text, Stack } from "@primer/react";
 //import type { JSX } from "keycloakify/tools/JSX";
 
 //import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
@@ -11,6 +11,7 @@ import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 // import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
+import googleIcon from "../../assets/svg/googleIcon.svg";
 
 type PageProps = {
     kcContext: Extract<KcContext, { pageId: "register.ftl" }>;
@@ -20,7 +21,9 @@ type PageProps = {
 export default function CustomRegister(props: PageProps) {
     const { kcContext, i18n } = props;
 
-    const { url, messagesPerField } = kcContext;
+    const { url, messagesPerField, social } = kcContext;
+    console.log(kcContext);
+
     //const [isFormSubmittable, setIsFormSubmittable] = useState(false);
 
     const { msgStr, advancedMsg } = i18n;
@@ -37,25 +40,16 @@ export default function CustomRegister(props: PageProps) {
 
     return (
         <>
-            <Box
-                as="form"
-                // onSubmit={() => {
-                //     setIsFormSubmittable(true);
-                //     return true;
-                // }}
-                bg="canvas.subtle"
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                width="100%"
-                maxWidth="400px"
-                p={5}
-                borderRadius={7}
-                mb={4}
+            <form
+                className="p-4 bg-bg-inset flex flex-col justify-center w-full border gap-8 rounded-2xl border-border-default"
                 action={url.registrationAction}
                 method="post"
             >
-                <FormControl sx={{ mb: 3 }}>
+                <Heading variant="medium">
+                    Create an OneDesk Account <span className="text-fg-sponsors!">for free</span>
+                </Heading>
+
+                <FormControl>
                     <FormControl.Label htmlFor="username" required>
                         {advancedMsg("${username}")}
                     </FormControl.Label>
@@ -67,11 +61,12 @@ export default function CustomRegister(props: PageProps) {
                         name="username"
                         autoComplete="username"
                     />
+
                     {messagesPerField.existsError("username") && (
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("username"))}</FormControl.Validation>
                     )}
                 </FormControl>
-                <FormControl sx={{ mb: 3 }}>
+                <FormControl>
                     <FormControl.Label required htmlFor="firstName">
                         {advancedMsg("${firstName}")}
                     </FormControl.Label>
@@ -86,7 +81,7 @@ export default function CustomRegister(props: PageProps) {
                     )}
                 </FormControl>
 
-                <FormControl sx={{ mb: 3 }}>
+                <FormControl>
                     <FormControl.Label required htmlFor="lastName">
                         {advancedMsg("${lastName}")}
                     </FormControl.Label>
@@ -102,7 +97,7 @@ export default function CustomRegister(props: PageProps) {
                     )}
                 </FormControl>
 
-                <FormControl sx={{ mb: 3 }}>
+                <FormControl>
                     <FormControl.Label required htmlFor="email">
                         {advancedMsg("${email}")}
                     </FormControl.Label>
@@ -119,23 +114,27 @@ export default function CustomRegister(props: PageProps) {
                     )}
                 </FormControl>
 
-                <FormControl sx={{ mb: 3 }}>
+                <FormControl>
                     <FormControl.Label required htmlFor="password">
                         {advancedMsg("${password}")}
                     </FormControl.Label>
                     <TextInput
+                        className="mb-1"
                         aria-invalid={messagesPerField.existsError("password")}
                         type="password"
                         name="password"
                         autoComplete="new-password"
                         block
                     />
+                    <Text className="text-fg-attention" size="small">
+                        Your password should be 8 characters minimum, and contain an uppercase letter along with a number
+                    </Text>
                     {messagesPerField.existsError("password") && (
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("password"))}</FormControl.Validation>
                     )}
                 </FormControl>
 
-                <FormControl sx={{ mb: 3 }}>
+                <FormControl>
                     <FormControl.Label required htmlFor="password-confirm">
                         {advancedMsg("${passwordConfirm}")}
                     </FormControl.Label>
@@ -152,18 +151,33 @@ export default function CustomRegister(props: PageProps) {
                         </FormControl.Validation>
                     )}
                 </FormControl>
-
-                <input type="hidden" id="id-hidden-input" />
-                <Button variant="primary" type="submit" block>
-                    {msgStr("doRegister")}
-                </Button>
-            </Box>
-            <Box width="100%" maxWidth="400px" textAlign="center">
-                <Text fontSize={1}>
-                    By creating an account, you agree to the <Link href="#">Terms of Service</Link>. See the <Link href="#">Privacy Policy</Link> for
-                    more details.
+                <Stack gap="condensed">
+                    <input type="hidden" id="id-hidden-input" />
+                    <Button className="bg-button-rest!" variant="primary" type="submit" block>
+                        {msgStr("doRegister")}
+                    </Button>
+                    <Text className="text-center!" size="small">
+                        or
+                    </Text>
+                    <div className="relative">
+                        <img src={googleIcon} className="absolute top-1/2 left-[2px] translate-y-[-50%] w-7 h-7" />
+                        <Button
+                            as="a"
+                            href={social?.providers?.find(p => p.providerId === "google")?.loginUrl}
+                            className="flex! bg-button-rest!"
+                            variant="primary"
+                        >
+                            Sign in with Google
+                        </Button>
+                    </div>
+                </Stack>
+                <Text size="small" className="text-center">
+                    By Clicking Sign in, I accept the <Link>terms and conditions</Link> and <Link>privacy policy</Link> by OneDesk
                 </Text>
-            </Box>
+            </form>
+            <Text className="w-full! text-center! flex flex-col" fontSize={1}>
+                already have an account? <Link href={url.loginUrl}>Login here</Link>
+            </Text>
         </>
     );
 }

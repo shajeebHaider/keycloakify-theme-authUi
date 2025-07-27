@@ -1,0 +1,34 @@
+@layer components {
+  .letter-avatar {
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--avatar-borderColor, var(--color-avatar-border));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--avatarSize);
+    line-height: 1;
+    overflow: hidden;
+    vertical-align: middle;
+    width: var(--avatarSize);
+  }
+
+  .simplebar {
+    height: 100%;
+    .simplebar-content {
+      height: 100%;
+    }
+  }
+
+  .btn-select {
+    @apply bg-bg-default! shadow-inset!;
+    [data-component='buttonContent'] {
+      @apply flex-none!;
+    }
+  }
+
+  .action-list-item-checkbox {
+    span {
+      @apply flex! gap-2!;
+    }
+  }
+}

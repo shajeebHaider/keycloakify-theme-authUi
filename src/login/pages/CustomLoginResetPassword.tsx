@@ -1,4 +1,4 @@
-import { Box, TextInput, FormControl, Button, Text, Link } from "@primer/react";
+import { TextInput, FormControl, Button, Text, Heading } from "@primer/react";
 import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
@@ -13,27 +13,23 @@ const CustomLoginResetPassword = (props: PageProps) => {
 
     const { url, realm, messagesPerField } = kcContext;
     console.log({ kcContext });
-    const { msg } = i18n;
+    //const { msg } = i18n;
 
     return (
         <>
-            <Box
-                as="form"
-                bg="canvas.subtle"
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                width="100%"
-                maxWidth="600px"
-                p={5}
-                borderRadius={7}
+            <form
+                className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-full"
                 action={url.loginAction}
                 method="post"
-                mb={3}
             >
-                <FormControl sx={{ mb: 3 }}>
+                <Heading variant="medium">Forgot your passowrd?</Heading>
+                <Text className="mb-4" color="fg.muted" size="medium">
+                    Provide your account’s email for which you want to reset your password
+                </Text>
+                <FormControl className="mb-2">
                     <FormControl.Label htmlFor="username">
-                        {!realm.loginWithEmailAllowed ? msg("username") : !realm.registrationEmailAsUsername ? msg("usernameOrEmail") : msg("email")}
+                        {/* {!realm.loginWithEmailAllowed ? msg("username") : !realm.registrationEmailAsUsername ? msg("usernameOrEmail") : msg("email")} */}
+                        Email
                     </FormControl.Label>
                     <TextInput type="text" id="username" name="username" autoFocus aria-invalid={messagesPerField.existsError("username")} block />
                     {messagesPerField.existsError("username") && (
@@ -41,30 +37,14 @@ const CustomLoginResetPassword = (props: PageProps) => {
                     )}
                 </FormControl>
 
-                <Button variant="primary" type="submit" block>
-                    Send password reset email
+                <Button className="bg-button-rest!" variant="primary" type="submit" block>
+                    Send Link
                 </Button>
-            </Box>
-            <Box
-                border="1px solid"
-                borderColor="border.subtle"
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-                width="100%"
-                maxWidth="600px"
-                p={3}
-                borderRadius={7}
-            >
-                <Text fontSize={1} mb={2}>
+            </form>
+
+            {/* <Text fontSize={1} mb={2}>
                     <Link href={url.loginUrl}>{msg("backToLogin")}</Link>
-                </Text>
-                <Text sx={{ textAlign: "center" }} fontSize={1}>
-                    {" "}
-                    Enter your username or email address and we will send you instructions on how to create a new password.
-                </Text>
-            </Box>
+                </Text> */}
         </>
     );
 };

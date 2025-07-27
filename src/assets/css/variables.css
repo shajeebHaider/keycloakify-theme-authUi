@@ -1,0 +1,9 @@
+:root {
+  --sidenav-width: 48px;
+  --appbar-height: 48px;
+  --trial-banner-height: 48px;
+  --app-header-height: var(--appbar-height);
+  --breakpoint-xsmall: 375px;
+  --content-height: calc(100vh - var(--app-header-height));
+  --toastify-z-index: 10001;
+}

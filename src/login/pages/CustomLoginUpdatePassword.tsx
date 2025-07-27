@@ -3,7 +3,7 @@
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
-import { Box, Stack, FormControl, TextInput, Button, Checkbox } from "@primer/react";
+import { Heading, Text, FormControl, TextInput, Button, Checkbox } from "@primer/react";
 
 type PageProps = {
     kcContext: Extract<KcContext, { pageId: "login-update-password.ftl" }>;
@@ -13,56 +13,52 @@ type PageProps = {
 export default function CustomLoginUpdatePassword(props: PageProps) {
     const { kcContext, i18n } = props;
 
-    const { msg, msgStr } = i18n;
+    const { msg } = i18n;
 
     const { url, messagesPerField, isAppInitiatedAction } = kcContext;
 
     return (
         <>
-            <Box
-                as="form"
-                bg="canvas.subtle"
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                width="100%"
-                maxWidth="340px"
-                p={5}
-                borderRadius={7}
-                mb={4}
+            <div></div>
+            <form
+                className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-full"
                 action={url.loginAction}
                 method="post"
             >
-                <Box sx={{ mb: 2 }}>
-                    <Stack direction="horizontal" justify="space-between" align="center">
-                        <FormControl.Label htmlFor="password-new">{msg("passwordNew")}</FormControl.Label>
-                    </Stack>
+                <Heading variant="medium">Reset your passowrd</Heading>
+                <Text className="mb-4" color="fg.muted" size="medium">
+                    Your identity has been verified. Please insert the new credentials.
+                </Text>
 
+                <FormControl className="mb-2" required>
+                    <FormControl.Label htmlFor="password-new">{msg("passwordNew")}</FormControl.Label>
                     <TextInput
+                        className="mb-1"
+                        placeholder="enter your new password"
                         block
                         name="password-new"
                         type="password"
                         autoComplete="new-password"
                         aria-invalid={messagesPerField.existsError("password", "password-confirm")}
-                        sx={{ mt: 1 }}
                     />
+                    <Text className="text-fg-attention" size="small">
+                        Your password should be 8 characters minimum, and contain an uppercase letter along with a number
+                    </Text>
 
                     {messagesPerField.existsError("password") && (
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("password"))}</FormControl.Validation>
                     )}
-                </Box>
-                <Box sx={{ mb: 2 }}>
-                    <Stack direction="horizontal" justify="space-between" align="center">
-                        <FormControl.Label htmlFor="passwordConfirm">{msg("passwordConfirm")}</FormControl.Label>
-                    </Stack>
+                </FormControl>
+                <FormControl className="mb-4" required>
+                    <FormControl.Label htmlFor="passwordConfirm">{msg("passwordConfirm")}</FormControl.Label>
 
                     <TextInput
                         block
+                        placeholder="confirm new password"
                         name="password-confirm"
                         type="password"
                         autoComplete="new-password"
                         aria-invalid={messagesPerField.existsError("password", "password-confirm")}
-                        sx={{ mt: 1 }}
                     />
 
                     {messagesPerField.existsError("password-confirm") && (
@@ -70,20 +66,22 @@ export default function CustomLoginUpdatePassword(props: PageProps) {
                             {kcSanitize(messagesPerField.getFirstError("password-confirm"))}
                         </FormControl.Validation>
                     )}
-                </Box>
-                <FormControl sx={{ mb: 3 }}>
+                </FormControl>
+
+                <FormControl>
                     <Checkbox value="on" name="logout-sessions" defaultChecked={true} />
                     <FormControl.Label>{msg("logoutOtherSessions")}</FormControl.Label>
                 </FormControl>
-                <Button variant="primary" type="submit" block>
-                    {msgStr("doSubmit")}
+                <Button className="bg-button-rest!" variant="primary" type="submit" block>
+                    Reset Password
+                    {/* {msgStr("doSubmit")} */}
                 </Button>
                 {isAppInitiatedAction && (
                     <Button type="submit" name="cancel-aia" value="true">
                         {msg("doCancel")}
                     </Button>
                 )}
-            </Box>
+            </form>
         </>
     );
 }
