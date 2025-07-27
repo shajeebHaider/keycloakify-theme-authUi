@@ -13,6 +13,7 @@ import CustomRegister from "./pages/CustomRegister";
 import CustomLoginUpdatePassword from "./pages/CustomLoginUpdatePassword";
 import logo from "../assets/logo/logo.png";
 import CustomInfo from "./pages/CustomInfo";
+import CustomLoginVerifyEmail from "./pages/CustomLoginVerifyEmail";
 
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
@@ -75,6 +76,15 @@ export default function KcPage(props: { kcContext: KcContext }) {
                         return (
                             <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomInfo i18n={i18n} kcContext={kcContext} />
+                            </Layout>
+                        );
+                    case "login-verify-email.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLoginVerifyEmail
+                                    kcContext={kcContext}
+                                    i18n={i18n}
+                                />
                             </Layout>
                         );
                     default:
