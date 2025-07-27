@@ -12,6 +12,7 @@ import CustomLoginResetPassword from "./pages/CustomLoginResetPassword";
 import CustomRegister from "./pages/CustomRegister";
 import CustomLoginUpdatePassword from "./pages/CustomLoginUpdatePassword";
 import logo from "../assets/logo/logo.png";
+import CustomInfo from "./pages/CustomInfo";
 
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
@@ -68,6 +69,12 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                     i18n={i18n}
                                     kcContext={kcContext}
                                 />
+                            </Layout>
+                        );
+                    case "info.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomInfo i18n={i18n} kcContext={kcContext} />
                             </Layout>
                         );
                     default:
