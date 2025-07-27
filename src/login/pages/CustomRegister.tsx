@@ -41,11 +41,11 @@ export default function CustomRegister(props: PageProps) {
     return (
         <>
             <form
-                className="p-4 bg-bg-inset flex flex-col justify-center w-full border gap-8 rounded-2xl border-border-default"
+                className="p-4 bg-bg-inset flex flex-col justify-center w-full border gap-4 rounded-2xl border-border-default"
                 action={url.registrationAction}
                 method="post"
             >
-                <Heading variant="medium">
+                <Heading className="mb-4!" variant="medium">
                     Create an OneDesk Account <span className="text-fg-sponsors!">for free</span>
                 </Heading>
 
@@ -134,7 +134,7 @@ export default function CustomRegister(props: PageProps) {
                     )}
                 </FormControl>
 
-                <FormControl>
+                <FormControl className="mb-4">
                     <FormControl.Label required htmlFor="password-confirm">
                         {advancedMsg("${passwordConfirm}")}
                     </FormControl.Label>
@@ -151,7 +151,7 @@ export default function CustomRegister(props: PageProps) {
                         </FormControl.Validation>
                     )}
                 </FormControl>
-                <Stack gap="condensed">
+                <Stack className="mb-4" gap="condensed">
                     <input type="hidden" id="id-hidden-input" />
                     <Button className="bg-button-rest!" variant="primary" type="submit" block>
                         {msgStr("doRegister")}
