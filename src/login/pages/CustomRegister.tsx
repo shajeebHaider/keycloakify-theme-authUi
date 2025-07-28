@@ -13,10 +13,20 @@ import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 // import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 import googleIcon from "../../assets/svg/googleIcon.svg";
 
-type PageProps = { kcContext: Extract<KcContext, { pageId: "register.ftl" }>; i18n: I18n };
+type RegisterKcContext = Extract<KcContext, { pageId: "register.ftl" }> & {
+    social?: {
+        providers?: Array<{ providerId: string; loginUrl: string }>;
+    };
+};
+
+type PageProps = {
+    kcContext: RegisterKcContext;
+    i18n: I18n;
+};
 
 export default function CustomRegister(props: PageProps) {
     const { kcContext, i18n } = props;
+    const googleLoginUrl = kcContext.social?.providers?.find(p => p.providerId === "google")?.loginUrl;
 
     const { url, messagesPerField } = kcContext;
     console.log(kcContext);
@@ -148,7 +158,7 @@ export default function CustomRegister(props: PageProps) {
                     </Text>
                     <div className="relative">
                         <img src={googleIcon} className="absolute top-1/2 left-[2px] translate-y-[-50%] w-7 h-7" />
-                        <Button as="a" className="flex! bg-bg-emphasis!" variant="primary">
+                        <Button as="a" href={googleLoginUrl} className="flex! bg-bg-emphasis!" variant="primary">
                             Sign in with Google
                         </Button>
                     </div>
