@@ -6,20 +6,21 @@ import { kcSanitize } from "keycloakify/lib/kcSanitize";
 type PageProps = { kcContext: Extract<KcContext, { pageId: "login-reset-password.ftl" }>; i18n: I18n };
 
 const CustomLoginResetPassword = (props: PageProps) => {
-    const { kcContext } = props;
+    const { kcContext, i18n } = props;
 
     const { url, messagesPerField } = kcContext;
     console.log({ kcContext });
-    //const { msg } = i18n;
+    const { msg, msgStr } = i18n;
 
     return (
         <>
             <form
                 className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-full"
                 action={url.loginAction}
+                id="kc-reset-password-form"
                 method="post"
             >
-                <Heading variant="medium">Forgot your passowrd?</Heading>
+                <Heading variant="medium">{msg("emailForgotTitle")}</Heading>
                 <Text className="mb-4" color="fg.muted" size="medium">
                     Provide your account’s email for which you want to reset your password
                 </Text>
@@ -34,7 +35,7 @@ const CustomLoginResetPassword = (props: PageProps) => {
                     )}
                 </FormControl>
 
-                <Button className="bg-button-rest!" variant="primary" type="submit" block>
+                <Button value={msgStr("doSubmit")} className="bg-button-rest!" variant="primary" type="submit" block>
                     Send Link
                 </Button>
             </form>
