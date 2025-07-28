@@ -42,7 +42,7 @@ export default function CustomRegister(props: PageProps) {
                     Create an OneDesk Account <span className="text-fg-sponsors!">for free</span>
                 </Heading>
 
-                <FormControl>
+                {/* <FormControl>
                     <FormControl.Label htmlFor="username" required>
                         {advancedMsg("${username}")}
                     </FormControl.Label>
@@ -58,11 +58,40 @@ export default function CustomRegister(props: PageProps) {
                     {messagesPerField.existsError("username") && (
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("username"))}</FormControl.Validation>
                     )}
-                </FormControl>
-                <FormControl>
-                    <FormControl.Label required htmlFor="email">
-                        {advancedMsg("${email}")}
-                    </FormControl.Label>
+                </FormControl> */}
+                <Stack gap="condensed" direction="horizontal">
+                    <FormControl required>
+                        <FormControl.Label required htmlFor="firstName">
+                            {advancedMsg("${firstName}")}
+                        </FormControl.Label>
+                        <TextInput
+                            aria-invalid={messagesPerField.existsError("firstName")}
+                            name="firstName"
+                            block
+                            defaultValue={formFieldStates.find(f => f.attribute.name === "firstName")?.valueOrValues}
+                        />
+                        {messagesPerField.existsError("firstName") && (
+                            <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("firstName"))}</FormControl.Validation>
+                        )}
+                    </FormControl>
+
+                    <FormControl required>
+                        <FormControl.Label htmlFor="lastName">{advancedMsg("${lastName}")}</FormControl.Label>
+                        <TextInput
+                            aria-invalid={messagesPerField.existsError("lastName")}
+                            type="lastName"
+                            name="lastName"
+                            defaultValue={formFieldStates.find(f => f.attribute.name === "lastName")?.valueOrValues}
+                            block
+                        />
+                        {messagesPerField.existsError("lastName") && (
+                            <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("lastName"))}</FormControl.Validation>
+                        )}
+                    </FormControl>
+                </Stack>
+
+                <FormControl required>
+                    <FormControl.Label htmlFor="email">{advancedMsg("${email}")}</FormControl.Label>
                     <TextInput
                         aria-invalid={messagesPerField.existsError("email")}
                         type="email"
@@ -76,10 +105,8 @@ export default function CustomRegister(props: PageProps) {
                     )}
                 </FormControl>
 
-                <FormControl>
-                    <FormControl.Label required htmlFor="password">
-                        {advancedMsg("${password}")}
-                    </FormControl.Label>
+                <FormControl required>
+                    <FormControl.Label htmlFor="password">{advancedMsg("${password}")}</FormControl.Label>
                     <TextInput
                         className="mb-1"
                         aria-invalid={messagesPerField.existsError("password")}
@@ -96,10 +123,8 @@ export default function CustomRegister(props: PageProps) {
                     )}
                 </FormControl>
 
-                <FormControl className="mb-4">
-                    <FormControl.Label required htmlFor="password-confirm">
-                        {advancedMsg("${passwordConfirm}")}
-                    </FormControl.Label>
+                <FormControl required className="mb-4">
+                    <FormControl.Label htmlFor="password-confirm">{advancedMsg("${passwordConfirm}")}</FormControl.Label>
                     <TextInput
                         aria-invalid={messagesPerField.existsError("password-confirm")}
                         type="password"
