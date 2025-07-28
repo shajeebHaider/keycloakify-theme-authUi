@@ -148,7 +148,7 @@ export default function CustomRegister(props: PageProps) {
                     </Text>
                     <div className="relative">
                         <img src={googleIcon} className="absolute top-1/2 left-[2px] translate-y-[-50%] w-7 h-7" />
-                        <Button as="a" className="flex! bg-button-rest!" variant="primary">
+                        <Button as="a" className="flex! bg-bg-emphasis!" variant="primary">
                             Sign in with Google
                         </Button>
                     </div>

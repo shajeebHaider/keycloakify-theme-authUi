@@ -64,7 +64,7 @@ const CustomLoginPassword = (props: PageProps) => {
                         <Button
                             as="a"
                             href={social?.providers?.find(p => p.providerId === "google")?.loginUrl}
-                            className="flex! bg-button-rest!"
+                            className="flex! bg-bg-emphasis!"
                             variant="primary"
                         >
                             Sign in with Google
