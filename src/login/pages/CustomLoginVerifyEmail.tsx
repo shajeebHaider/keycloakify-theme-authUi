@@ -3,10 +3,7 @@ import type { I18n } from "../i18n";
 import { Text, Heading } from "@primer/react";
 import { CheckCircleFillIcon } from "@primer/octicons-react";
 
-type PageProps = {
-    kcContext: Extract<KcContext, { pageId: "login-verify-email.ftl" }>;
-    i18n: I18n;
-};
+type PageProps = { kcContext: Extract<KcContext, { pageId: "login-verify-email.ftl" }>; i18n: I18n };
 
 const CustomLoginVerifyEmail = (props: PageProps) => {
     const { i18n } = props;
@@ -20,8 +17,8 @@ const CustomLoginVerifyEmail = (props: PageProps) => {
                 </div>
 
                 <Heading as="h2" variant="medium" className="text-left flex-1">
-                    A confirmation email has been sent to your address
-                    {/* {msg("emailVerifyTitle")} */}
+                    {/* // A confirmation email has been sent to your address */}
+                    {msg("emailVerifyTitle")}
                 </Heading>
             </div>
             <div className="p-4 bg-bg-inset rounded-b-2xl border-border-transparent">

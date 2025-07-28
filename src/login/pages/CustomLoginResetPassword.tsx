@@ -3,15 +3,12 @@ import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 
-type PageProps = {
-    kcContext: Extract<KcContext, { pageId: "login-reset-password.ftl" }>;
-    i18n: I18n;
-};
+type PageProps = { kcContext: Extract<KcContext, { pageId: "login-reset-password.ftl" }>; i18n: I18n };
 
 const CustomLoginResetPassword = (props: PageProps) => {
-    const { kcContext, i18n } = props;
+    const { kcContext } = props;
 
-    const { url, realm, messagesPerField } = kcContext;
+    const { url, messagesPerField } = kcContext;
     console.log({ kcContext });
     //const { msg } = i18n;
 

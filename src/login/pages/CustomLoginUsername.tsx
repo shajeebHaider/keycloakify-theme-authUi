@@ -5,10 +5,7 @@ import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { useState } from "react";
 import googleIcon from "../../assets/svg/googleIcon.svg";
 
-type PageProps = {
-    kcContext: Extract<KcContext, { pageId: "login-username.ftl" }>;
-    i18n: I18n;
-};
+type PageProps = { kcContext: Extract<KcContext, { pageId: "login-username.ftl" }>; i18n: I18n };
 
 const CustomLoginUsername = (props: PageProps) => {
     const { kcContext, i18n } = props;

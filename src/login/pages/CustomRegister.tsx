@@ -13,15 +13,12 @@ import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 // import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 import googleIcon from "../../assets/svg/googleIcon.svg";
 
-type PageProps = {
-    kcContext: Extract<KcContext, { pageId: "register.ftl" }>;
-    i18n: I18n;
-};
+type PageProps = { kcContext: Extract<KcContext, { pageId: "register.ftl" }>; i18n: I18n };
 
 export default function CustomRegister(props: PageProps) {
     const { kcContext, i18n } = props;
 
-    const { url, messagesPerField, social } = kcContext;
+    const { url, messagesPerField } = kcContext;
     console.log(kcContext);
 
     //const [isFormSubmittable, setIsFormSubmittable] = useState(false);
@@ -30,11 +27,7 @@ export default function CustomRegister(props: PageProps) {
 
     const {
         formState: { formFieldStates }
-    } = useUserProfileForm({
-        kcContext,
-        i18n,
-        doMakeUserConfirmPassword: false
-    });
+    } = useUserProfileForm({ kcContext, i18n, doMakeUserConfirmPassword: false });
 
     console.log({ kcContext });
 
@@ -66,37 +59,6 @@ export default function CustomRegister(props: PageProps) {
                         <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("username"))}</FormControl.Validation>
                     )}
                 </FormControl>
-                <FormControl>
-                    <FormControl.Label required htmlFor="firstName">
-                        {advancedMsg("${firstName}")}
-                    </FormControl.Label>
-                    <TextInput
-                        aria-invalid={messagesPerField.existsError("firstName")}
-                        name="firstName"
-                        block
-                        defaultValue={formFieldStates.find(f => f.attribute.name === "firstName")?.valueOrValues}
-                    />
-                    {messagesPerField.existsError("firstName") && (
-                        <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("firstName"))}</FormControl.Validation>
-                    )}
-                </FormControl>
-
-                <FormControl>
-                    <FormControl.Label required htmlFor="lastName">
-                        {advancedMsg("${lastName}")}
-                    </FormControl.Label>
-                    <TextInput
-                        aria-invalid={messagesPerField.existsError("lastName")}
-                        type="lastName"
-                        name="lastName"
-                        defaultValue={formFieldStates.find(f => f.attribute.name === "lastName")?.valueOrValues}
-                        block
-                    />
-                    {messagesPerField.existsError("lastName") && (
-                        <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("lastName"))}</FormControl.Validation>
-                    )}
-                </FormControl>
-
                 <FormControl>
                     <FormControl.Label required htmlFor="email">
                         {advancedMsg("${email}")}
@@ -161,12 +123,7 @@ export default function CustomRegister(props: PageProps) {
                     </Text>
                     <div className="relative">
                         <img src={googleIcon} className="absolute top-1/2 left-[2px] translate-y-[-50%] w-7 h-7" />
-                        <Button
-                            as="a"
-                            href={social?.providers?.find(p => p.providerId === "google")?.loginUrl}
-                            className="flex! bg-button-rest!"
-                            variant="primary"
-                        >
+                        <Button as="a" className="flex! bg-button-rest!" variant="primary">
                             Sign in with Google
                         </Button>
                     </div>

@@ -6,10 +6,7 @@ import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { useState } from "react";
 import googleIcon from "../../assets/svg/googleIcon.svg";
 
-type PageProps = {
-    kcContext: Extract<KcContext, { pageId: "login-password.ftl" }>;
-    i18n: I18n;
-};
+type PageProps = { kcContext: Extract<KcContext, { pageId: "login-password.ftl" }>; i18n: I18n };
 
 const CustomLoginPassword = (props: PageProps) => {
     const { kcContext, i18n } = props;
@@ -46,12 +43,7 @@ const CustomLoginPassword = (props: PageProps) => {
                         sx={{ mt: 1 }}
                     />
                     {realm.resetPasswordAllowed && (
-                        <Link
-                            sx={{
-                                fontSize: "small"
-                            }}
-                            href={url.loginResetCredentialsUrl}
-                        >
+                        <Link sx={{ fontSize: "small" }} href={url.loginResetCredentialsUrl}>
                             {msg("doForgotPassword")}
                         </Link>
                     )}
