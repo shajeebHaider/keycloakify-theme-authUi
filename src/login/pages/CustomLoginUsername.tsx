@@ -1,4 +1,4 @@
-import { Stack, Text, TextInput, FormControl, Link, Button } from "@primer/react";
+import { Stack, Text, TextInput, FormControl, Link, Button, Heading } from "@primer/react";
 import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
@@ -29,31 +29,34 @@ const CustomLoginUsername = (props: PageProps) => {
                 action={url.loginAction}
                 method="post"
             >
-                {!usernameHidden && (
-                    <FormControl>
-                        <FormControl.Label htmlFor="username">
-                            {!realm.loginWithEmailAllowed
-                                ? msg("username")
-                                : !realm.registrationEmailAsUsername
-                                  ? msg("usernameOrEmail")
-                                  : msg("email")}
-                        </FormControl.Label>
-                        <TextInput
-                            aria-invalid={messagesPerField.existsError("username", "password")}
-                            block
-                            type="email"
-                            name="username"
-                            defaultValue={login.username ?? ""}
-                            autoComplete="username"
-                        />
-                        {messagesPerField.existsError("username", "password") && (
-                            <FormControl.Validation variant="error">
-                                {kcSanitize(messagesPerField.getFirstError("username", "password"))}
-                            </FormControl.Validation>
-                        )}
-                    </FormControl>
-                )}
-
+                {" "}
+                <Heading variant="medium"> Sign in to your OneDesk account</Heading>
+                <div className="-mt-2">
+                    {!usernameHidden && (
+                        <FormControl>
+                            <FormControl.Label htmlFor="username">
+                                {!realm.loginWithEmailAllowed
+                                    ? msg("username")
+                                    : !realm.registrationEmailAsUsername
+                                      ? msg("usernameOrEmail")
+                                      : msg("email")}
+                            </FormControl.Label>
+                            <TextInput
+                                aria-invalid={messagesPerField.existsError("username", "password")}
+                                block
+                                type="email"
+                                name="username"
+                                defaultValue={login.username ?? ""}
+                                autoComplete="username"
+                            />
+                            {messagesPerField.existsError("username", "password") && (
+                                <FormControl.Validation variant="error">
+                                    {kcSanitize(messagesPerField.getFirstError("username", "password"))}
+                                </FormControl.Validation>
+                            )}
+                        </FormControl>
+                    )}
+                </div>
                 {/* {realm.rememberMe && !usernameHidden && (
                     <FormControl sx={{ mb: 3 }}>
                         <Checkbox value="default" name="rememberMe" defaultChecked={!!login.rememberMe} />

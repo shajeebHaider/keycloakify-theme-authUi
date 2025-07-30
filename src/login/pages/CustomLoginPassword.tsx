@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Text, TextInput, FormControl, Link, Button, Stack } from "@primer/react";
+import { Text, TextInput, FormControl, Link, Button, Stack, Heading } from "@primer/react";
 import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
@@ -29,19 +29,22 @@ const CustomLoginPassword = (props: PageProps) => {
                 action={url.loginAction}
                 method="post"
             >
-                <div className="text-right">
-                    <Stack direction="horizontal" justify="space-between" align="center">
-                        <FormControl.Label htmlFor="password">{msg("password")}</FormControl.Label>
-                    </Stack>
+                <Heading variant="medium"> Sign in to your OneDesk account</Heading>
 
-                    <TextInput
-                        block
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        aria-invalid={messagesPerField.existsError("password")}
-                        sx={{ mt: 1 }}
-                    />
+                <div className="text-right -mt-2">
+                    <FormControl>
+                        <FormControl.Label htmlFor="password">{msg("password")}</FormControl.Label>
+
+                        <TextInput
+                            block
+                            name="password"
+                            type="password"
+                            autoComplete="current-password"
+                            aria-invalid={messagesPerField.existsError("password")}
+                            sx={{ mt: 1 }}
+                        />
+                    </FormControl>
+
                     {realm.resetPasswordAllowed && (
                         <Link sx={{ fontSize: "small" }} href={url.loginResetCredentialsUrl}>
                             {msg("doForgotPassword")}
