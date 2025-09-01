@@ -12,8 +12,8 @@ import CustomLoginResetPassword from "./pages/CustomLoginResetPassword";
 import CustomRegister from "./pages/CustomRegister";
 import CustomLoginUpdatePassword from "./pages/CustomLoginUpdatePassword";
 import logo from "../assets/logo/logo.png";
-import CustomInfo from "./pages/CustomInfo";
 import CustomLoginVerifyEmail from "./pages/CustomLoginVerifyEmail";
+import CustomLogoutConfirm from "./pages/CustomLogoutConfirm";
 
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
@@ -70,6 +70,12 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                     i18n={i18n}
                                     kcContext={kcContext}
                                 />
+                            </Layout>
+                        );
+                    case "logout-confirm.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLogoutConfirm kcContext={kcContext} i18n={i18n} />
                             </Layout>
                         );
 
