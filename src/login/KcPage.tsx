@@ -72,12 +72,7 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                 />
                             </Layout>
                         );
-                    case "info.ftl":
-                        return (
-                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
-                                <CustomInfo i18n={i18n} kcContext={kcContext} />
-                            </Layout>
-                        );
+
                     case "login-verify-email.ftl":
                         return (
                             <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
