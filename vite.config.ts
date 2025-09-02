@@ -11,7 +11,8 @@ export default defineConfig({
         checker({ typescript: false, eslint: false }),
         react(),
         keycloakify({
-            accountThemeImplementation: "none"
+            accountThemeImplementation: "none",
+            environmentVariables: [{ name: "MY_APP_URL", default: "" }]
         })
     ]
 });

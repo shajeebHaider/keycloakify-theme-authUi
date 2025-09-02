@@ -13,12 +13,27 @@ type LayoutProps = Omit<
     logo: string;
 };
 
-export const Layout = ({ children, logo }: PropsWithChildren<LayoutProps>) => {
+type PropertiesWithMyAppUrl = {
+    MY_APP_URL: string;
+    [key: string]: unknown;
+};
+
+export const Layout = ({
+    children,
+    logo,
+    kcContext
+}: PropsWithChildren<
+    LayoutProps & { kcContext: { properties: PropertiesWithMyAppUrl } }
+>) => {
+    const myUrl = kcContext.properties.MY_APP_URL;
+
     return (
         <ThemeProvider theme={customTheme}>
             <BaseStyles>
                 <div className="flex flex-col items-center justify-center bg-bg-default min-h-screen">
-                    <img className="mb-10" alt="logo" src={logo} />
+                    <a href={myUrl}>
+                        <img className="mb-10" alt="logo" src={logo} />
+                    </a>
                     <div className="w-[375px]  flex flex-col gap-10">{children}</div>
                 </div>
             </BaseStyles>
