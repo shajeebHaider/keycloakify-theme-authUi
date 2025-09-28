@@ -21,13 +21,15 @@ const CustomLoginIdpLinkConfirm = (props: PageProps) => {
             <form id="kc-register-form" action={url.loginAction} method="post">
                 <div className="text-center mb-4">
                     <Heading variant="medium">{msg("confirmLinkIdpTitle")}</Heading>
+                </div>
+                <div className="mb-4">
                     {message?.type === "error" && <Banner hideTitle title="Error" variant="critical" description={message?.summary} />}
                     {message?.type === "info" && <Banner hideTitle title="Information" variant="info" description={message?.summary} />}
                     {message?.type === "success" && <Banner hideTitle title="Success" variant="success" description={message?.summary} />}
                     {message?.type === "warning" && <Banner hideTitle title="Warning" variant="warning" description={message?.summary} />}
                 </div>
 
-                <Stack gap="condensed" className="text-center">
+                <Stack className="text-center" gap="condensed">
                     <Button
                         variant="primary"
                         className="bg-button-rest!"
@@ -35,7 +37,6 @@ const CustomLoginIdpLinkConfirm = (props: PageProps) => {
                         name="submitAction"
                         id="linkAccount"
                         value="linkAccount"
-                        as="a"
                         block
                     >
                         {msg("confirmLinkIdpContinue", idpAlias)}

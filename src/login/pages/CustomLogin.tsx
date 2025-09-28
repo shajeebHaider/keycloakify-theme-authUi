@@ -14,7 +14,7 @@ type PageProps = {
 const CustomLogin = (props: PageProps) => {
     const { kcContext, i18n } = props;
 
-    const { social, realm, url, usernameHidden, login, auth, messagesPerField, message } = kcContext;
+    const { social, realm, url, usernameHidden, login, auth, messagesPerField } = kcContext;
 
     console.log(kcContext.message?.type);
     const { msg, msgStr } = i18n;
@@ -33,13 +33,7 @@ const CustomLogin = (props: PageProps) => {
                 method="post"
             >
                 <Heading variant="medium"> Sign in to your OneDesk account</Heading>
-                {message?.type === "info" && (
-                    <div className="p-2 text-center bg-bg-inset border border-border-default rounded">
-                        <Text as="p" size="medium" color="fg.muted">
-                            {message.summary}
-                        </Text>
-                    </div>
-                )}
+
                 <div className="-mt-2">
                     {!usernameHidden && (
                         <FormControl className="mb-4">
