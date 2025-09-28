@@ -14,6 +14,10 @@ import CustomLoginUpdatePassword from "./pages/CustomLoginUpdatePassword";
 import logo from "../assets/logo/logo.png";
 import CustomLoginVerifyEmail from "./pages/CustomLoginVerifyEmail";
 import CustomLogoutConfirm from "./pages/CustomLogoutConfirm";
+import CustomError from "./pages/CustomError";
+import CustomLoginIdpLinkEmail from "./pages/CustomLoginIdpLinkEmail";
+import CustomLoginIdpLinkConfirm from "./pages/CustomLoginIdpLinkConfirm";
+import CustomLoginPageExpired from "./pages/CustomLoginPageExpired";
 
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
@@ -88,6 +92,41 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                 />
                             </Layout>
                         );
+                    case "error.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomError kcContext={kcContext} i18n={i18n} />
+                            </Layout>
+                        );
+
+                    case "login-idp-link-confirm.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLoginIdpLinkConfirm
+                                    kcContext={kcContext}
+                                    i18n={i18n}
+                                />
+                            </Layout>
+                        );
+                    case "login-idp-link-email.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLoginIdpLinkEmail
+                                    kcContext={kcContext}
+                                    i18n={i18n}
+                                />
+                            </Layout>
+                        );
+                    case "login-page-expired.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLoginPageExpired
+                                    kcContext={kcContext}
+                                    i18n={i18n}
+                                />
+                            </Layout>
+                        );
+
                     default:
                         return (
                             <DefaultPage
