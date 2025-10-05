@@ -16,7 +16,7 @@ const CustomLoginOtp = (props: PageProps) => {
 
     const { url, otpLogin, messagesPerField } = kcContext;
 
-    const { msgStr } = i18n;
+    const { msg, msgStr } = i18n;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,6 +29,7 @@ const CustomLoginOtp = (props: PageProps) => {
                     Enter your Otp
                 </Heading>
                 <form
+                    id="kc-otp-login-form"
                     onSubmit={() => {
                         setIsSubmitting(true);
                         return true;
@@ -56,15 +57,17 @@ const CustomLoginOtp = (props: PageProps) => {
                         </div>
 
                         <FormControl className="mb-4">
-                            <FormControl.Label>One-time code</FormControl.Label>
-                            <TextInput aria-invalid={messagesPerField.existsError("totp")} type="text" block />
+                            <FormControl.Label htmlFor="otp">{msg("loginOtpOneTime")}</FormControl.Label>
+                            <TextInput id="otp" name="otp" aria-invalid={messagesPerField.existsError("totp")} type="text" block />
                             {messagesPerField.existsError("totp") && (
-                                <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("totp"))}</FormControl.Validation>
+                                <FormControl.Validation id="input-error-otp-code" aria-live="polite" variant="error">
+                                    {kcSanitize(messagesPerField.getFirstError("totp"))}
+                                </FormControl.Validation>
                             )}
                         </FormControl>
                     </div>
                     <Stack gap="condensed" className="text-center!">
-                        <Button className="bg-button-rest!" variant="primary" type="submit" block disabled={isSubmitting}>
+                        <Button name="login" id="kc-login" className="bg-button-rest!" variant="primary" type="submit" block disabled={isSubmitting}>
                             {msgStr("doLogIn")}
                         </Button>
                     </Stack>
