@@ -57,7 +57,7 @@ const CustomLoginOtp = (props: PageProps) => {
 
                         <FormControl className="mb-4">
                             <FormControl.Label>One-time code</FormControl.Label>
-                            <TextInput aria-invalid={messagesPerField.existsError("totp")} block type="email" name="username" />
+                            <TextInput aria-invalid={messagesPerField.existsError("totp")} type="text" block />
                             {messagesPerField.existsError("totp") && (
                                 <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("totp"))}</FormControl.Validation>
                             )}
