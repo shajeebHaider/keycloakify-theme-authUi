@@ -18,6 +18,8 @@ import CustomError from "./pages/CustomError";
 import CustomLoginIdpLinkEmail from "./pages/CustomLoginIdpLinkEmail";
 import CustomLoginIdpLinkConfirm from "./pages/CustomLoginIdpLinkConfirm";
 import CustomLoginPageExpired from "./pages/CustomLoginPageExpired";
+import CustomLoginConfigTotp from "./pages/CustomLoginConfigTotp";
+import CustomLoginOtp from "./pages/CustomLoginOtp";
 
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
@@ -126,7 +128,22 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                 />
                             </Layout>
                         );
+                    case "login-config-totp.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLoginConfigTotp
+                                    kcContext={kcContext}
+                                    i18n={i18n}
+                                />
+                            </Layout>
+                        );
 
+                    case "login-otp.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLoginOtp kcContext={kcContext} i18n={i18n} />
+                            </Layout>
+                        );
                     default:
                         return (
                             <DefaultPage
