@@ -15,7 +15,7 @@ const CustomLoginResetPassword = (props: PageProps) => {
     return (
         <>
             <form
-                className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-full"
+                className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-[375px]"
                 action={url.loginAction}
                 id="kc-reset-password-form"
                 method="post"

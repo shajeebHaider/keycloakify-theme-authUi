@@ -21,7 +21,7 @@ export default function CustomLoginUpdatePassword(props: PageProps) {
         <>
             <div></div>
             <form
-                className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-full"
+                className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-[375px]"
                 action={url.loginAction}
                 method="post"
             >

@@ -1,4 +1,5 @@
-import { Heading, TextInput, FormControl, Link, Button, Text, Stack } from "@primer/react";
+import { Heading, TextInput, FormControl, Link, Button, Text, Stack, IconButton } from "@primer/react";
+import { EyeIcon, EyeClosedIcon } from "@primer/octicons-react";
 //import type { JSX } from "keycloakify/tools/JSX";
 
 //import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
@@ -12,6 +13,7 @@ import type { I18n } from "../i18n";
 import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 // import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 import googleIcon from "../../assets/svg/googleIcon.svg";
+import { useState } from "react";
 
 type RegisterKcContext = Extract<KcContext, { pageId: "register.ftl" }> & {
     social?: {
@@ -32,6 +34,8 @@ export default function CustomRegister(props: PageProps) {
     console.log(kcContext);
 
     //const [isFormSubmittable, setIsFormSubmittable] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const { msgStr, advancedMsg } = i18n;
 
@@ -44,7 +48,7 @@ export default function CustomRegister(props: PageProps) {
     return (
         <>
             <form
-                className="p-4 bg-bg-inset flex flex-col justify-center w-full border gap-4 rounded-2xl border-border-default"
+                className="p-4 bg-bg-inset flex flex-col justify-center w-[375px] border gap-4 rounded-2xl border-border-default"
                 action={url.registrationAction}
                 method="post"
             >
@@ -117,14 +121,24 @@ export default function CustomRegister(props: PageProps) {
 
                 <FormControl required>
                     <FormControl.Label htmlFor="password">{advancedMsg("${password}")}</FormControl.Label>
-                    <TextInput
-                        className="mb-1"
-                        aria-invalid={messagesPerField.existsError("password")}
-                        type="password"
-                        name="password"
-                        autoComplete="new-password"
-                        block
-                    />
+                    <div className="relative w-full">
+                        <TextInput
+                            className="mb-1 w-full"
+                            aria-invalid={messagesPerField.existsError("password")}
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            autoComplete="new-password"
+                        />
+                        <IconButton
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            icon={showPassword ? EyeClosedIcon : EyeIcon}
+                            size="small"
+                            variant="invisible"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                        />
+                    </div>
                     <Text className="text-fg-attention" size="small">
                         Your password should be 8 characters minimum, and contain an uppercase letter along with a number
                     </Text>
@@ -135,13 +149,24 @@ export default function CustomRegister(props: PageProps) {
 
                 <FormControl required className="mb-4">
                     <FormControl.Label htmlFor="password-confirm">{advancedMsg("${passwordConfirm}")}</FormControl.Label>
-                    <TextInput
-                        aria-invalid={messagesPerField.existsError("password-confirm")}
-                        type="password"
-                        name="password-confirm"
-                        autoComplete="new-password"
-                        block
-                    />
+                    <div className="relative w-full">
+                        <TextInput
+                            className="w-full"
+                            aria-invalid={messagesPerField.existsError("password-confirm")}
+                            type={showConfirmPassword ? "text" : "password"}
+                            name="password-confirm"
+                            autoComplete="new-password"
+                        />
+                        <IconButton
+                            type="button"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            icon={showConfirmPassword ? EyeClosedIcon : EyeIcon}
+                            size="small"
+                            variant="invisible"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                            aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                        />
+                    </div>
                     {messagesPerField.existsError("password-confirm") && (
                         <FormControl.Validation variant="error">
                             {kcSanitize(messagesPerField.getFirstError("password-confirm"))}

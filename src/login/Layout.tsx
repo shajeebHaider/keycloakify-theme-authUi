@@ -31,10 +31,12 @@ export const Layout = ({
         <ThemeProvider theme={customTheme}>
             <BaseStyles>
                 <div className="flex flex-col items-center justify-center bg-bg-default min-h-screen">
-                    <a href={myUrl}>
-                        <img className="mb-10" alt="logo" src={logo} />
-                    </a>
-                    <div className="w-[375px]  flex flex-col gap-10">{children}</div>
+                    <div className="flex flex-col items-center gap-10">
+                        <a href={myUrl}>
+                            <img className="mb-0" alt="logo" src={logo} />
+                        </a>
+                        <div className="flex flex-col gap-10">{children}</div>
+                    </div>
                 </div>
             </BaseStyles>
         </ThemeProvider>

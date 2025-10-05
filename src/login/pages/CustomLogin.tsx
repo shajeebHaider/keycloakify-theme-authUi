@@ -1,4 +1,5 @@
-import { Text, TextInput, FormControl, Link, Button, Stack, Heading } from "@primer/react";
+import { Text, TextInput, FormControl, Link, Button, Stack, Heading, IconButton } from "@primer/react";
+import { EyeIcon, EyeClosedIcon } from "@primer/octicons-react";
 import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
@@ -20,11 +21,12 @@ const CustomLogin = (props: PageProps) => {
     const { msg, msgStr } = i18n;
 
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <>
             <form
-                className="p-4 bg-bg-inset flex flex-col justify-center w-full border gap-8 rounded-2xl border-border-default"
+                className="p-4 bg-bg-inset flex w-[375px] flex-col justify-center  border gap-8 rounded-2xl border-border-default"
                 onSubmit={() => {
                     setIsLoginButtonDisabled(true);
                     return true;
@@ -37,14 +39,7 @@ const CustomLogin = (props: PageProps) => {
                 <div className="-mt-2">
                     {!usernameHidden && (
                         <FormControl className="mb-4">
-                            <FormControl.Label htmlFor="username">
-                                {/* {!realm.loginWithEmailAllowed
-                                ? msg("username")
-                                : !realm.registrationEmailAsUsername
-                                  ? msg("usernameOrEmail")
-                                  : msg("email")} */}
-                                Email
-                            </FormControl.Label>
+                            <FormControl.Label htmlFor="username">Email</FormControl.Label>
                             <TextInput
                                 aria-invalid={messagesPerField.existsError("username", "password")}
                                 block
@@ -64,13 +59,24 @@ const CustomLogin = (props: PageProps) => {
                     <div className="text-right">
                         <FormControl>
                             <FormControl.Label htmlFor="password">{msg("password")}</FormControl.Label>
-                            <TextInput
-                                block
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
-                                aria-invalid={messagesPerField.existsError("username", "password")}
-                            />
+                            <div className="relative w-full">
+                                <TextInput
+                                    className="w-full"
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    autoComplete="current-password"
+                                    aria-invalid={messagesPerField.existsError("username", "password")}
+                                />
+                                <IconButton
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    icon={showPassword ? EyeClosedIcon : EyeIcon}
+                                    size="small"
+                                    variant="invisible"
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                />
+                            </div>
                         </FormControl>
 
                         {realm.resetPasswordAllowed && (
@@ -87,13 +93,6 @@ const CustomLogin = (props: PageProps) => {
                     </div>
                 </div>
                 <Stack gap="condensed" className="text-center!">
-                    {/* {realm.rememberMe && !usernameHidden && (
-                        <FormControl className="mb-1">
-                            <Checkbox value="default" name="rememberMe" defaultChecked={!!login.rememberMe} />
-                            <FormControl.Label>{msg("rememberMe")}</FormControl.Label>
-                        </FormControl>
-                    )} */}
-
                     <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
                     <Button className="bg-button-rest!" variant="primary" type="submit" block disabled={isLoginButtonDisabled}>
                         {msgStr("doLogIn")}

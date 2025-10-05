@@ -17,7 +17,7 @@ const CustomLoginIdpLinkConfirm = (props: PageProps) => {
     const { msg } = i18n;
 
     return (
-        <div className="p-4 bg-bg-inset flex flex-col justify-center w-full border rounded-2xl border-border-default">
+        <div className="p-4 bg-bg-inset flex flex-col justify-center w-[375px] border rounded-2xl border-border-default">
             <form id="kc-register-form" action={url.loginAction} method="post">
                 <div className="text-center mb-4">
                     <Heading variant="medium">{msg("confirmLinkIdpTitle")}</Heading>

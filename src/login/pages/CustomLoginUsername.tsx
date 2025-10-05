@@ -21,7 +21,7 @@ const CustomLoginUsername = (props: PageProps) => {
     return (
         <>
             <form
-                className="p-4 bg-bg-inset flex flex-col justify-center w-full border gap-8 rounded-2xl border-border-default"
+                className="p-4 bg-bg-inset flex flex-col justify-center w-[375px] border gap-8 rounded-2xl border-border-default"
                 onSubmit={() => {
                     setIsLoginButtonDisabled(true);
                     return true;

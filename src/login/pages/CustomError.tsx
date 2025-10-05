@@ -75,7 +75,7 @@ const CustomError = (props: PageProps) => {
     const errorContent = getCustomErrorContent(errorType);
 
     return (
-        <div className="p-4 bg-bg-inset flex flex-col justify-center w-full border rounded-2xl border-border-default">
+        <div className="p-4 bg-bg-inset flex flex-col justify-center w-[375px] border rounded-2xl border-border-default">
             <div className="text-center mb-4">
                 <div className="flex justify-center mb-2">
                     {errorType === "auth_failed" && <AlertIcon size={32} />}

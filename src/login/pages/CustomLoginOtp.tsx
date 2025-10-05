@@ -23,7 +23,7 @@ const CustomLoginOtp = (props: PageProps) => {
     return (
         <>
             {" "}
-            <div className="bg-bg-inset w-full flex flex-col justify-center border rounded-2xl border-border-default p-4 gap-6">
+            <div className="bg-bg-inset  flex flex-col w-[375px] justify-center border rounded-2xl border-border-default p-4 gap-6">
                 <Heading variant="medium" className="text-center">
                     {" "}
                     Enter your Otp

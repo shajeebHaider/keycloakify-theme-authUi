@@ -17,9 +17,9 @@ const CustomLoginConfigTotp = (props: PageProps) => {
     const { msg, msgStr, advancedMsg } = i18n;
 
     return (
-        <div className="bg-bg-inset w-[445px] flex flex-col justify-center  border rounded-2xl border-border-default">
+        <div className="bg-bg-inset w-[445px] flex flex-col justify-center border rounded-2xl border-border-default">
             <div className="border-b border-border-default p-4 pr-2">
-                <Heading variant="medium">
+                <Heading className="text-center!" variant="medium">
                     {/* {msg("loginTotpTitle")} */}
                     Connect to an authenticator app
                 </Heading>

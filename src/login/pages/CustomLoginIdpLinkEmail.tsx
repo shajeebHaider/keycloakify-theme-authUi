@@ -17,7 +17,7 @@ const CustomLoginIdpLinkEmail = (props: PageProps) => {
     const { msg } = i18n;
 
     return (
-        <div className="p-4 bg-bg-inset flex flex-col justify-center w-full border rounded-2xl border-border-default">
+        <div className="p-4 bg-bg-inset flex flex-col justify-center w-[375px] border rounded-2xl border-border-default">
             <Heading className="text-center! mb-4!" variant="medium">
                 {msg("emailLinkIdpTitle", idpAlias)}
             </Heading>
