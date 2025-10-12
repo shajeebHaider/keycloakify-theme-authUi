@@ -11,7 +11,13 @@ export default defineConfig({
         checker({ typescript: false, eslint: false }),
         react(),
         keycloakify({
-            accountThemeImplementation: "none"
+            accountThemeImplementation: "none",
+            environmentVariables: [
+                {
+                    name: "MY_APP_LOGIN_RESET_CREDENTIALS_URL",
+                    default: "http://localhost:4200/password-reset-confirmed"
+                }
+            ]
         })
     ]
 });

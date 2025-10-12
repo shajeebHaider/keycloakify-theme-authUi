@@ -12,11 +12,13 @@ const CustomLoginResetPassword = (props: PageProps) => {
     console.log({ kcContext });
     const { msg, msgStr } = i18n;
 
+    console.log({ loginAction: url.loginAction });
+
     return (
         <>
             <form
                 className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-full"
-                action={url.loginAction}
+                action={`${url.loginAction}&redirect_uri=${kcContext.properties.MY_APP_LOGIN_RESET_CREDENTIALS_URL}`}
                 id="kc-reset-password-form"
                 method="post"
             >
