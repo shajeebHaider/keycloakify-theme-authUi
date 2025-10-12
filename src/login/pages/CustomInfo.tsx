@@ -12,19 +12,19 @@ type PageProps = {
 const CustomInfo = (props: PageProps) => {
     const { i18n, kcContext } = props;
 
+    const myUrl = kcContext.properties.MY_APP_URL;
+
+    console.log(kcContext);
+
     const { advancedMsgStr, msg } = i18n;
 
-    const { messageHeader, message, requiredActions, skipLink, pageRedirectUri, actionUri, client } = kcContext;
+    const { message, requiredActions, skipLink, pageRedirectUri, actionUri, client } = kcContext;
 
     return (
         <div className="p-4 bg-bg-inset flex flex-col justify-center w-[375px] border rounded-2xl border-border-default">
             <div className="text-center mb-4">
                 <Heading variant="medium" className="mb-4">
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: kcSanitize(messageHeader ?? message.summary)
-                        }}
-                    />
+                    Information
                 </Heading>
 
                 <Text size="medium" color="fg.muted" className="mb-6 max-w-md mx-auto">
@@ -72,7 +72,7 @@ const CustomInfo = (props: PageProps) => {
                     }
 
                     if (client.baseUrl) {
-                        return <Link href={client.baseUrl}>{msg("backToApplication")}</Link>;
+                        return <Link href={myUrl}>{msg("backToApplication")}</Link>;
                     }
                 })()}
             </Stack>

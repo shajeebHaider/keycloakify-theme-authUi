@@ -12,7 +12,12 @@ export default defineConfig({
         react(),
         keycloakify({
             accountThemeImplementation: "none",
-            environmentVariables: [{ name: "MY_APP_URL", default: "" }]
+            environmentVariables: [
+                {
+                    name: "MY_APP_URL",
+                    default: ""
+                }
+            ]
         })
     ]
 });
