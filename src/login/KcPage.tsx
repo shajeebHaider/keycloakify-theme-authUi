@@ -21,6 +21,7 @@ import CustomLoginPageExpired from "./pages/CustomLoginPageExpired";
 import CustomLoginConfigTotp from "./pages/CustomLoginConfigTotp";
 import CustomLoginOtp from "./pages/CustomLoginOtp";
 import CustomInfo from "./pages/CustomInfo";
+import CustomIdpReviewUserProfile from "./pages/CustomIdpReviewUserProfile";
 
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
@@ -149,6 +150,15 @@ export default function KcPage(props: { kcContext: KcContext }) {
                         return (
                             <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomInfo kcContext={kcContext} i18n={i18n} />
+                            </Layout>
+                        );
+                    case "idp-review-user-profile.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomIdpReviewUserProfile
+                                    kcContext={kcContext}
+                                    i18n={i18n}
+                                />
                             </Layout>
                         );
                     default:
