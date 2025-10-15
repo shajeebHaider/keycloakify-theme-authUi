@@ -2,6 +2,7 @@ import { TextInput, FormControl, Button, Text, Heading } from "@primer/react";
 import { I18n } from "../i18n";
 import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
+import { useState } from "react";
 
 type PageProps = { kcContext: Extract<KcContext, { pageId: "login-reset-password.ftl" }>; i18n: I18n };
 
@@ -12,11 +13,17 @@ const CustomLoginResetPassword = (props: PageProps) => {
     console.log({ kcContext });
     const { msg, msgStr } = i18n;
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
     return (
         <>
             <form
                 className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-[375px]"
                 action={url.loginAction}
+                onSubmit={() => {
+                    setIsButtonDisabled(true);
+                    return true;
+                }}
                 id="kc-reset-password-form"
                 method="post"
             >
@@ -35,7 +42,7 @@ const CustomLoginResetPassword = (props: PageProps) => {
                     )}
                 </FormControl>
 
-                <Button value={msgStr("doSubmit")} className="bg-button-rest!" variant="primary" type="submit" block>
+                <Button disabled={isButtonDisabled} value={msgStr("doSubmit")} className="bg-button-rest!" variant="primary" type="submit" block>
                     Send Link
                 </Button>
             </form>

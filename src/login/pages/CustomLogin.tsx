@@ -16,9 +16,8 @@ type PageProps = {
 const CustomLogin = (props: PageProps) => {
     const { kcContext, i18n } = props;
 
-    const { social, realm, url, usernameHidden, login, auth, messagesPerField } = kcContext;
+    const { social, realm, url, usernameHidden, login, auth, messagesPerField, message } = kcContext;
 
-    console.log(kcContext.message?.type);
     const { msg, msgStr } = i18n;
 
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
@@ -36,8 +35,8 @@ const CustomLogin = (props: PageProps) => {
                 method="post"
             >
                 <Heading variant="medium"> Sign in to your OneDesk account</Heading>
-                {kcContext.message?.summary && (
-                    <Banner aria-label="Info with hidden title" title="Info" hideTitle variant="info" description={kcContext.message?.summary} />
+                {message?.summary && (
+                    <Banner aria-label="Info with hidden title" title="Info" hideTitle variant="info" description={message?.summary} />
                 )}
                 <div className="-mt-2">
                     {!usernameHidden && (

@@ -4,13 +4,14 @@ import type { KcContext } from "../KcContext";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { useState } from "react";
 import googleIcon from "../../assets/svg/googleIcon.svg";
+import { Banner } from "@primer/react/experimental";
 
 type PageProps = { kcContext: Extract<KcContext, { pageId: "login-username.ftl" }>; i18n: I18n };
 
 const CustomLoginUsername = (props: PageProps) => {
     const { kcContext, i18n } = props;
 
-    const { social, realm, url, usernameHidden, login, messagesPerField } = kcContext;
+    const { social, realm, url, usernameHidden, login, messagesPerField, message } = kcContext;
 
     console.log({ kcContext });
 
@@ -31,6 +32,9 @@ const CustomLoginUsername = (props: PageProps) => {
             >
                 {" "}
                 <Heading variant="medium"> Sign in to your OneDesk account</Heading>
+                {message?.summary && (
+                    <Banner aria-label="Info with hidden title" title="Info" hideTitle variant="info" description={message?.summary} />
+                )}
                 <div className="-mt-2">
                     {!usernameHidden && (
                         <FormControl>

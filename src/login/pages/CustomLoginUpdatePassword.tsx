@@ -19,16 +19,21 @@ export default function CustomLoginUpdatePassword(props: PageProps) {
 
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     return (
         <>
-            <div></div>
             <form
                 className="flex gap-2 flex-col justify-center p-4 border rounded-2xl border-border-default bg-bg-inset w-[375px]"
                 action={url.loginAction}
+                onSubmit={() => {
+                    setIsButtonDisabled(true);
+                    return true;
+                }}
+                id="kc-update-password-form"
                 method="post"
             >
-                <Heading variant="medium">Reset your passowrd</Heading>
+                <Heading variant="medium">Reset your password</Heading>
                 <Text className="mb-4" color="fg.muted" size="medium">
                     Your identity has been verified. Please insert the new credentials.
                 </Text>
@@ -97,7 +102,7 @@ export default function CustomLoginUpdatePassword(props: PageProps) {
                     <Checkbox value="on" name="logout-sessions" defaultChecked={true} />
                     <FormControl.Label>{msg("logoutOtherSessions")}</FormControl.Label>
                 </FormControl>
-                <Button className="bg-button-rest!" variant="primary" type="submit" block>
+                <Button disabled={isButtonDisabled} className="bg-button-rest!" variant="primary" type="submit" block>
                     Reset Password
                     {/* {msgStr("doSubmit")} */}
                 </Button>
