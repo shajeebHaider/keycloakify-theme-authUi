@@ -6,6 +6,7 @@ import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { useState } from "react";
 import "../../assets/css/app.css";
 import googleIcon from "../../assets/svg/googleIcon.svg";
+import { Banner } from "@primer/react/experimental";
 
 type PageProps = {
     kcContext: Extract<KcContext, { pageId: "login.ftl" }>;
@@ -35,7 +36,7 @@ const CustomLogin = (props: PageProps) => {
                 method="post"
             >
                 <Heading variant="medium"> Sign in to your OneDesk account</Heading>
-
+                {kcContext.message?.summary && <Banner title="Information" variant="info" description={kcContext.message?.summary} />}
                 <div className="-mt-2">
                     {!usernameHidden && (
                         <FormControl className="mb-4">

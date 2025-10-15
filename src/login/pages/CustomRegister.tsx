@@ -173,21 +173,27 @@ export default function CustomRegister(props: PageProps) {
                         </FormControl.Validation>
                     )}
                 </FormControl>
+
                 <Stack className="mb-4" gap="condensed">
                     <input type="hidden" id="id-hidden-input" />
                     <Button className="bg-button-rest!" variant="primary" type="submit" block>
                         {msgStr("doRegister")}
                     </Button>
-                    <Text className="text-center!" size="small">
-                        or
-                    </Text>
-                    <div className="relative">
-                        <img src={googleIcon} className="absolute top-1/2 left-[2px] translate-y-[-50%] w-7 h-7" />
-                        <Button as="a" href={googleLoginUrl} className="flex! bg-bg-emphasis!" variant="primary">
-                            Sign in with Google
-                        </Button>
-                    </div>
+                    {!kcContext["x-keycloakify"]?.messages?.["organization.member.register.title"] && (
+                        <>
+                            <Text className="text-center!" size="small">
+                                or
+                            </Text>
+                            <div className="relative">
+                                <img src={googleIcon} className="absolute top-1/2 left-[2px] translate-y-[-50%] w-7 h-7" />
+                                <Button as="a" href={googleLoginUrl} className="flex! bg-bg-emphasis!" variant="primary">
+                                    Sign in with Google
+                                </Button>
+                            </div>
+                        </>
+                    )}
                 </Stack>
+
                 <Text size="small" className="text-center">
                     By Clicking Sign in, I accept the <Link>terms and conditions</Link> and <Link>privacy policy</Link> by OneDesk
                 </Text>
