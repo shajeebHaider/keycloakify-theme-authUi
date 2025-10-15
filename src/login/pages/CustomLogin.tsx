@@ -36,7 +36,9 @@ const CustomLogin = (props: PageProps) => {
                 method="post"
             >
                 <Heading variant="medium"> Sign in to your OneDesk account</Heading>
-                {kcContext.message?.summary && <Banner title="Information" variant="info" description={kcContext.message?.summary} />}
+                {kcContext.message?.summary && (
+                    <Banner aria-label="Info with hidden title" title="Info" hideTitle variant="info" description={kcContext.message?.summary} />
+                )}
                 <div className="-mt-2">
                     {!usernameHidden && (
                         <FormControl className="mb-4">
