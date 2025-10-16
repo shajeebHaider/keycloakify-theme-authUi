@@ -22,6 +22,7 @@ import CustomLoginConfigTotp from "./pages/CustomLoginConfigTotp";
 import CustomLoginOtp from "./pages/CustomLoginOtp";
 import CustomInfo from "./pages/CustomInfo";
 import CustomIdpReviewUserProfile from "./pages/CustomIdpReviewUserProfile";
+import CustomLoginUpdateProfile from "./pages/CustomLoginUpdateProfile";
 
 // import Login from "./pages/Login";
 const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
@@ -156,6 +157,15 @@ export default function KcPage(props: { kcContext: KcContext }) {
                         return (
                             <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
                                 <CustomIdpReviewUserProfile
+                                    kcContext={kcContext}
+                                    i18n={i18n}
+                                />
+                            </Layout>
+                        );
+                    case "login-update-profile.ftl":
+                        return (
+                            <Layout kcContext={kcContext} i18n={i18n} logo={logo}>
+                                <CustomLoginUpdateProfile
                                     kcContext={kcContext}
                                     i18n={i18n}
                                 />

@@ -5,12 +5,12 @@ import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { I18n } from "../i18n";
 import { useUserProfileForm } from "keycloakify/login/lib/useUserProfileForm";
 
-type IdpReviewUserProfileProps = {
-    kcContext: Extract<KcContext, { pageId: "idp-review-user-profile.ftl" }>;
+type CustomLoginUpdateProfileProps = {
+    kcContext: Extract<KcContext, { pageId: "login-update-profile.ftl" }>;
     i18n: I18n;
 };
 
-const CustomIdpReviewUserProfile = (props: IdpReviewUserProfileProps) => {
+const CustomLoginUpdateProfile = (props: CustomLoginUpdateProfileProps) => {
     const { kcContext, i18n } = props;
 
     const { msg, msgStr, advancedMsg } = i18n;
@@ -27,21 +27,7 @@ const CustomIdpReviewUserProfile = (props: IdpReviewUserProfileProps) => {
             action={url.loginAction}
             method="post"
         >
-            <Heading variant="medium">{msg("loginIdpReviewProfileTitle")}</Heading>
-            <FormControl required>
-                <FormControl.Label htmlFor="email">{advancedMsg("${email}")}</FormControl.Label>
-                <TextInput
-                    aria-invalid={messagesPerField.existsError("email")}
-                    type="email"
-                    name="email"
-                    defaultValue={formFieldStates.find(f => f.attribute.name === "email")?.valueOrValues}
-                    autoComplete="email"
-                    block
-                />
-                {messagesPerField.existsError("email") && (
-                    <FormControl.Validation variant="error">{kcSanitize(messagesPerField.getFirstError("email"))}</FormControl.Validation>
-                )}
-            </FormControl>
+            <Heading variant="medium">{msg("loginProfileTitle")}</Heading>
             <Stack gap="condensed" direction="horizontal">
                 <FormControl required>
                     <FormControl.Label required htmlFor="firstName">
@@ -84,4 +70,4 @@ const CustomIdpReviewUserProfile = (props: IdpReviewUserProfileProps) => {
     );
 };
 
-export default CustomIdpReviewUserProfile;
+export default CustomLoginUpdateProfile;
