@@ -16,6 +16,10 @@ export default defineConfig({
                 {
                     name: "MY_APP_URL",
                     default: ""
+                },
+                {
+                    name: "ACCOUNT_SETTING_URL",
+                    default: ""
                 }
             ]
         })

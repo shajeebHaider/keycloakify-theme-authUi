@@ -12,6 +12,8 @@ type PageProps = {
 const CustomLoginConfigTotp = (props: PageProps) => {
     const { kcContext, i18n } = props;
 
+    const myaccountUrl = kcContext.properties.ACCOUNT_SETTING_URL;
+
     const { url, isAppInitiatedAction, totp, mode, messagesPerField } = kcContext;
 
     const { msg, msgStr, advancedMsg } = i18n;
@@ -144,15 +146,19 @@ const CustomLoginConfigTotp = (props: PageProps) => {
                                     <Button variant="primary" className="bg-button-rest!" type="submit" id="saveTOTPBtn">
                                         {msgStr("doSubmit")}
                                     </Button>
-                                    <Button type="submit" id="cancelTOTPBtn" name="cancel-aia" value="true">
+                                    <Button as="a" href={myaccountUrl} type="submit" id="cancelTOTPBtn" name="cancel-aia" value="true">
                                         {msg("doCancel")}
                                     </Button>
                                 </div>
                             </>
                         ) : (
-                            <Button variant="primary" className="bg-button-rest!" type="submit" id="saveTOTPBtn" value="true">
-                                {msgStr("doSubmit")}
-                            </Button>
+                            <>
+                                <div className="flex items-center gap-2">
+                                    <Button variant="primary" className="bg-button-rest!" type="submit" id="saveTOTPBtn">
+                                        {msgStr("doSubmit")}
+                                    </Button>
+                                </div>
+                            </>
                         )}
                     </div>
                 </form>
