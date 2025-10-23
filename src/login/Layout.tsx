@@ -30,7 +30,7 @@ export const Layout = ({
     return (
         <ThemeProvider theme={customTheme}>
             <BaseStyles>
-                <div className="flex flex-col items-center justify-center bg-bg-default min-h-screen md:p-6 p-10">
+                <div className="flex flex-col items-center justify-center bg-bg-default min-h-screen md:p-10 p-6">
                     <div className="flex flex-col items-center gap-10">
                         <a href={myUrl}>
                             <img className="mb-0" alt="logo" src={logo} />
