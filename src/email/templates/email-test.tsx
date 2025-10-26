@@ -17,7 +17,8 @@ const containerStyle = {
     backgroundColor: "#F6F8FA",
     border: "1px solid #D1D9E0B2",
     borderRadius: "8px",
-    marginBottom: "24px"
+    marginBottom: "24px",
+    marginTop: "24px"
 };
 
 export const previewProps: TemplateProps = {

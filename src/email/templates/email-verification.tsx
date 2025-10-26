@@ -18,7 +18,8 @@ const containerStyle = {
     backgroundColor: "#F6F8FA",
     border: "1px solid #D1D9E0B2",
     borderRadius: "8px",
-    marginBottom: "24px"
+    marginBottom: "24px",
+    marginTop: "24px"
 };
 
 export const previewProps: TemplateProps = {
@@ -33,7 +34,7 @@ const { exp, v } = createVariablesHelper("email-verification.ftl");
 export const Template = ({ locale }: TemplateProps) => (
     <EmailLayout
         userEmail={exp("user.email")}
-        preview={`Here is a preview`}
+        preview={`Someone has created an account with your email address`}
         locale={locale}
     >
         <Text style={paragraph}>
@@ -52,14 +53,14 @@ export const Template = ({ locale }: TemplateProps) => (
                 {exp("linkExpirationFormatter(linkExpiration)")}. If you didn&apos;t
                 create this account, just ignore this message.
             </p>
-            <Container style={containerStyle}>
-                <p style={{ color: "#1F2328", textAlign: "left" }}>
-                    If you have any concerns, please take a look at the current{" "}
-                    <Link href="#">Support Policy</Link>, which contains detailed
-                    information on how to get access to our Customer Support Team.
-                </p>
-            </Container>
         </Text>
+        <Container style={containerStyle}>
+            <p style={{ color: "#1F2328", textAlign: "left" }}>
+                If you have any concerns, please take a look at the current{" "}
+                <Link href="#">Support Policy</Link>, which contains detailed information
+                on how to get access to our Customer Support Team.
+            </p>
+        </Container>
     </EmailLayout>
 );
 

@@ -18,7 +18,8 @@ const containerStyle = {
     backgroundColor: "#F6F8FA",
     border: "1px solid #D1D9E0B2",
     borderRadius: "8px",
-    marginBottom: "24px"
+    marginBottom: "24px",
+    marginTop: "24px"
 };
 
 export const previewProps: TemplateProps = {
@@ -33,7 +34,7 @@ const { exp, v } = createVariablesHelper("email-update-confirmation.ftl");
 export const Template = ({ locale }: TemplateProps) => (
     <EmailLayout
         userEmail={exp("user.email")}
-        preview={`Here is a preview`}
+        preview={`To update your account, please confirm your email address`}
         locale={locale}
     >
         <Text style={paragraph}>
@@ -51,14 +52,14 @@ export const Template = ({ locale }: TemplateProps) => (
                 {exp("linkExpirationFormatter(linkExpiration)")}. If you don&apos;t want
                 to proceed with this modification, just ignore this message.
             </p>
-            <Container style={containerStyle}>
-                <p style={{ color: "#1F2328", textAlign: "left" }}>
-                    If you have any concerns, please take a look at the current{" "}
-                    <Link href="#">Support Policy</Link>, which contains detailed
-                    information on how to get access to our Customer Support Team.
-                </p>
-            </Container>
         </Text>
+        <Container style={containerStyle}>
+            <p style={{ color: "#1F2328", textAlign: "left" }}>
+                If you have any concerns, please take a look at the current{" "}
+                <Link href="#">Support Policy</Link>, which contains detailed information
+                on how to get access to our Customer Support Team.
+            </p>
+        </Container>
     </EmailLayout>
 );
 

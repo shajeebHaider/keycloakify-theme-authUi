@@ -37,8 +37,7 @@ const image = {
 };
 
 const box = {
-    padding: "0 0",
-    marginBottom: "24px"
+    padding: "0 0"
 };
 
 const footer = {
@@ -57,7 +56,7 @@ export const EmailLayout = ({
     locale: string;
     userEmail?: string;
 }>) => {
-    const logoUrl = import.meta.isJsxEmailPreview ? "/assets" : "${url.resourcesUrl}";
+    const logoUrl = "https://cdn.onedesk.so/logo/welcome-logo.png";
 
     return (
         <Html lang={locale}>
@@ -65,7 +64,11 @@ export const EmailLayout = ({
             <Preview>{preview}</Preview>
             <Body style={main}>
                 <Container style={image} alignment="center">
-                    <Img src={`${logoUrl}/logo.png`} alt="Keycloakify" />
+                    <Img
+                        style={{ height: "25px", width: "173px" }}
+                        src={logoUrl}
+                        alt="Keycloakify"
+                    />
                 </Container>
                 <Container style={container} alignment="left">
                     <Section style={box}>{children}</Section>
@@ -73,7 +76,7 @@ export const EmailLayout = ({
                         style={{
                             textAlign: "left" as const,
                             color: "#1F2328",
-                            marginTop: "-14px"
+                            marginTop: "0px"
                         }}
                     >
                         Best regards,
@@ -87,15 +90,15 @@ export const EmailLayout = ({
                         <Link href={`mailto:${userEmail}`}>{userEmail}</Link>
                     </Text>
                     <Img
-                        style={{ marginBottom: "8px" }}
-                        src={`${logoUrl}/logo.png`}
+                        style={{ marginBottom: "8px", height: "25px", width: "173px" }}
+                        src={logoUrl}
                         alt="Keycloakify"
                     />
                     <Text
                         style={{
                             color: "#59646E",
                             marginBottom: "16px",
-                            marginTop: "-8px"
+                            marginTop: "0px"
                         }}
                     >
                         Wilmington, DE, US 19802-4447

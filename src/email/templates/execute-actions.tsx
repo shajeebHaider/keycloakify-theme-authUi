@@ -19,7 +19,8 @@ const containerStyle = {
     backgroundColor: "#F6F8FA",
     border: "1px solid #D1D9E0B2",
     borderRadius: "8px",
-    marginBottom: "24px"
+    marginBottom: "24px",
+    marginTop: "24px"
 };
 
 // Helper component to create a Freemarker expression for the list
@@ -38,7 +39,7 @@ const { exp, v } = createVariablesHelper("executeActions.ftl");
 export const Template = ({ locale }: TemplateProps) => (
     <EmailLayout
         userEmail={exp("user.email")}
-        preview={`Here is a preview`}
+        preview={`Your administrator has requested that you update your account`}
         locale={locale}
     >
         <Text style={paragraph}>
@@ -86,14 +87,14 @@ export const Template = ({ locale }: TemplateProps) => (
                 your administrator has requested this, just ignore this message and
                 nothing will be changed.
             </p>
-            <Container style={containerStyle}>
-                <p style={{ color: "#1F2328", textAlign: "left" }}>
-                    If you have any concerns, please take a look at the current{" "}
-                    <Link href="#">Support Policy</Link>, which contains detailed
-                    information on how to get access to our Customer Support Team.
-                </p>
-            </Container>
         </Text>
+        <Container style={containerStyle}>
+            <p style={{ color: "#1F2328", textAlign: "left" }}>
+                If you have any concerns, please take a look at the current{" "}
+                <Link href="#">Support Policy</Link>, which contains detailed information
+                on how to get access to our Customer Support Team.
+            </p>
+        </Container>
     </EmailLayout>
 );
 
