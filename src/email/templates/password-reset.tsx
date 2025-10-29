@@ -1,4 +1,4 @@
-import { Container, Link, Text, render } from "jsx-email";
+import { Button, Container, Link, Text, render } from "jsx-email";
 import { EmailLayout } from "../layout";
 import { GetSubject, GetTemplate, GetTemplateProps } from "keycloakify-emails";
 import { createVariablesHelper } from "keycloakify-emails/variables";
@@ -13,14 +13,14 @@ const paragraph = {
     textAlign: "left" as const
 };
 
-const containerStyle = {
-    padding: "0px 16px 0px 16px",
-    backgroundColor: "#F6F8FA",
-    border: "1px solid #D1D9E0B2",
-    borderRadius: "8px",
-    marginBottom: "24px",
-    marginTop: "24px"
-};
+// const containerStyle = {
+//     padding: "0px 16px 0px 16px",
+//     backgroundColor: "#F6F8FA",
+//     border: "1px solid #D1D9E0B2",
+//     borderRadius: "8px",
+//     marginBottom: "24px",
+//     marginTop: "24px"
+// };
 
 export const previewProps: TemplateProps = {
     locale: "en",
@@ -34,7 +34,7 @@ const { exp, v } = createVariablesHelper("password-reset.ftl");
 export const Template = ({ locale }: TemplateProps) => (
     <EmailLayout
         userEmail={exp("user.email")}
-        preview={`Someone just requested to change your account's credentials`}
+        preview={`We received a request to reset your password`}
         locale={locale}
     >
         <Text style={paragraph}>
@@ -44,24 +44,34 @@ export const Template = ({ locale }: TemplateProps) => (
                 </p>
             </Fm.If>
             <p style={{ color: "#1F2328" }}>
-                Someone just requested to change your {exp("realmName")} account&apos;s
-                credentials. If this was you, click on{" "}
-                <Link href={exp("link")}>this link</Link> to reset them.
-            </p>
-            <p style={{ color: "#1F2328" }}>
-                This link will expire within{" "}
-                {exp("linkExpirationFormatter(linkExpiration)")}. If you don&apos;t want
-                to reset your credentials, just ignore this message and nothing will be
-                changed.
+                We received a request to reset your password for your {exp("realmName")}{" "}
+                account. Click the button below to choose a new password:
             </p>
         </Text>
-        <Container style={containerStyle}>
-            <p style={{ color: "#1F2328", textAlign: "left" }}>
-                If you have any concerns, please take a look at the current{" "}
-                <Link href="#">Support Policy</Link>, which contains detailed information
-                on how to get access to our Customer Support Team.
-            </p>
+        <Container>
+            <Button
+                height={32}
+                width={130}
+                href={exp("link")}
+                align="left"
+                fontSize={14}
+                borderRadius={6}
+                style={{
+                    backgroundColor: "#0969DA",
+                    color: "#FFFFFF"
+                }}
+            >
+                Reset Password
+            </Button>
         </Container>
+        <Text style={paragraph}>
+            <p style={{ color: "#1F2328" }}>
+                This link will expire within{" "}
+                {exp("linkExpirationFormatter(linkExpiration)")}. If you didn&apos;t
+                request this, please report to{" "}
+                <Link href="mailto:support@onedesk.so">support@onedesk.so</Link>
+            </p>
+        </Text>
     </EmailLayout>
 );
 export const getTemplate: GetTemplate = async props => {
@@ -69,5 +79,5 @@ export const getTemplate: GetTemplate = async props => {
 };
 
 export const getSubject: GetSubject = async _props => {
-    return "Reset password";
+    return "Password Reset Requested";
 };

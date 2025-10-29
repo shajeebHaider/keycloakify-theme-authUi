@@ -1,4 +1,4 @@
-import { Container, Link, Text, render } from "jsx-email";
+import { Button, Container, Link, Text, render } from "jsx-email";
 import { EmailLayout } from "../layout";
 import { GetSubject, GetTemplate, GetTemplateProps } from "keycloakify-emails";
 import { createVariablesHelper } from "keycloakify-emails/variables";
@@ -11,15 +11,6 @@ const paragraph = {
     fontSize: "14px",
     lineHeight: "20px",
     textAlign: "left" as const
-};
-
-const containerStyle = {
-    padding: "0px 16px 0px 16px",
-    backgroundColor: "#F6F8FA",
-    border: "1px solid #D1D9E0B2",
-    borderRadius: "8px",
-    marginBottom: "24px",
-    marginTop: "24px"
 };
 
 export const previewProps: TemplateProps = {
@@ -44,23 +35,41 @@ export const Template = ({ locale }: TemplateProps) => (
                 </p>
             </Fm.If>
             <p style={{ color: "#1F2328" }}>
-                Someone has created a {exp("user.firstName")} account with this email
-                address. If this was you, click <Link href={exp("link")}>this link</Link>{" "}
-                to verify your email address.
+                Thank you for signing up for OneDesk! Please confirm your email address by
+                clicking the button below:
             </p>
+        </Text>
+        <Container>
+            <Button
+                height={32}
+                width={130}
+                href={exp("link")}
+                align="left"
+                fontSize={14}
+                borderRadius={6}
+                style={{
+                    backgroundColor: "#0969DA",
+                    color: "#FFFFFF"
+                }}
+            >
+                Confirm Email
+            </Button>
+        </Container>
+        <Text style={paragraph}>
+            <p style={{ color: "#1F2328" }}>
+                This helps us keep your account secure and ensure that you receive
+                important updates.
+            </p>
+        </Text>
+        <Text style={paragraph}>
             <p style={{ color: "#1F2328" }}>
                 This link will expire within{" "}
                 {exp("linkExpirationFormatter(linkExpiration)")}. If you didn&apos;t
-                create this account, just ignore this message.
+                create this account, you can safely ignore this email or if you think this
+                is an abuse, please report to{" "}
+                <Link href="mailto:support@onedesk.so">support@onedesk.so</Link>
             </p>
         </Text>
-        <Container style={containerStyle}>
-            <p style={{ color: "#1F2328", textAlign: "left" }}>
-                If you have any concerns, please take a look at the current{" "}
-                <Link href="#">Support Policy</Link>, which contains detailed information
-                on how to get access to our Customer Support Team.
-            </p>
-        </Container>
     </EmailLayout>
 );
 
@@ -69,5 +78,5 @@ export const getTemplate: GetTemplate = async props => {
 };
 
 export const getSubject: GetSubject = async _props => {
-    return "Verify email";
+    return "Verify Your Email Address";
 };

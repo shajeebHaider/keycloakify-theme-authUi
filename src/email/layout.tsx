@@ -56,7 +56,7 @@ export const EmailLayout = ({
     locale: string;
     userEmail?: string;
 }>) => {
-    const logoUrl = "https://cdn.onedesk.so/logo/welcome-logo.png";
+    const logoUrl = "https://cdn.onedesk.so/logo/logo-with-bg.png";
 
     return (
         <Html lang={locale}>
@@ -65,7 +65,7 @@ export const EmailLayout = ({
             <Body style={main}>
                 <Container style={image} alignment="center">
                     <Img
-                        style={{ height: "25px", width: "173px" }}
+                        style={{ height: "41px", width: "189px" }}
                         src={logoUrl}
                         alt="Keycloakify"
                     />
@@ -90,7 +90,7 @@ export const EmailLayout = ({
                         <Link href={`mailto:${userEmail}`}>{userEmail}</Link>
                     </Text>
                     <Img
-                        style={{ marginBottom: "8px", height: "25px", width: "173px" }}
+                        style={{ marginBottom: "24px", height: "41px", width: "189px" }}
                         src={logoUrl}
                         alt="Keycloakify"
                     />
@@ -101,7 +101,9 @@ export const EmailLayout = ({
                             marginTop: "0px"
                         }}
                     >
-                        Wilmington, DE, US 19802-4447
+                        2810 North Church Street, PMB 38894
+                        <br />
+                        Wilmington, DE 19802, United States
                     </Text>
                     <Container
                         style={{

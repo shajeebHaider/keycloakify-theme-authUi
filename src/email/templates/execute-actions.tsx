@@ -1,4 +1,4 @@
-import { Container, Link, render, Text } from "jsx-email";
+import { Button, Container, Link, render, Text } from "jsx-email";
 import { GetSubject, GetTemplate, GetTemplateProps } from "keycloakify-emails";
 import * as Fm from "keycloakify-emails/jsx-email";
 import { ReactNode } from "react";
@@ -12,15 +12,6 @@ const paragraph = {
     fontSize: "14px",
     lineHeight: "20px",
     textAlign: "left" as const
-};
-
-const containerStyle = {
-    padding: "0px 16px 0px 16px",
-    backgroundColor: "#F6F8FA",
-    border: "1px solid #D1D9E0B2",
-    borderRadius: "8px",
-    marginBottom: "24px",
-    marginTop: "24px"
 };
 
 // Helper component to create a Freemarker expression for the list
@@ -78,9 +69,30 @@ export const Template = ({ locale }: TemplateProps) => (
                     </FmList>
                 </ul>
             </Fm.If>
+        </Text>
+        <Text>
             <p style={{ color: "#1F2328" }}>
-                Click on <Link href={exp("link")}>this link</Link> to start this process.
+                Click on <Link href={exp("link")}>the button below</Link> to start this
+                process.
             </p>
+        </Text>
+        <Container>
+            <Button
+                height={32}
+                width={130}
+                href={exp("link")}
+                align="left"
+                fontSize={14}
+                borderRadius={6}
+                style={{
+                    backgroundColor: "#0969DA",
+                    color: "#FFFFFF"
+                }}
+            >
+                Start Now
+            </Button>
+        </Container>
+        <Text>
             <p style={{ color: "#1F2328" }}>
                 This link will expire within{" "}
                 {exp("linkExpirationFormatter(linkExpiration)")}. If you are unaware that
@@ -88,13 +100,6 @@ export const Template = ({ locale }: TemplateProps) => (
                 nothing will be changed.
             </p>
         </Text>
-        <Container style={containerStyle}>
-            <p style={{ color: "#1F2328", textAlign: "left" }}>
-                If you have any concerns, please take a look at the current{" "}
-                <Link href="#">Support Policy</Link>, which contains detailed information
-                on how to get access to our Customer Support Team.
-            </p>
-        </Container>
     </EmailLayout>
 );
 

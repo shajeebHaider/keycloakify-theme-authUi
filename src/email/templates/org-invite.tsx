@@ -1,4 +1,4 @@
-import { Container, Link, Text, render } from "jsx-email";
+import { Button, Container, Link, Text, render } from "jsx-email";
 import { EmailLayout } from "../layout";
 import * as Fm from "keycloakify-emails/jsx-email";
 import { GetSubject, GetTemplate, GetTemplateProps } from "keycloakify-emails";
@@ -13,15 +13,6 @@ const paragraph = {
     textAlign: "left" as const
 };
 
-const containerStyle = {
-    padding: "0px 16px 0px 16px",
-    backgroundColor: "#F6F8FA",
-    border: "1px solid #D1D9E0B2",
-    borderRadius: "8px",
-    marginBottom: "24px",
-    marginTop: "24px"
-};
-
 export const previewProps: TemplateProps = {
     locale: "en",
     themeName: "vanilla"
@@ -34,7 +25,7 @@ const { exp, v } = createVariablesHelper("org-invite.ftl");
 export const Template = ({ locale }: TemplateProps) => (
     <EmailLayout
         userEmail={exp("user.email")}
-        preview={`You were invited to join the ${exp("organization.name")} organization`}
+        preview={`You have an invitation to join ${exp("organization.name")} `}
         locale={locale}
     >
         <Text style={paragraph}>
@@ -44,22 +35,36 @@ export const Template = ({ locale }: TemplateProps) => (
                 </p>
             </Fm.If>
             <p style={{ color: "#1F2328" }}>
-                You were invited to join the {exp("organization.name")} organization.
-                Click on <Link href={exp("link")}>this link</Link> to join.
-            </p>
-            <p style={{ color: "#1F2328" }}>
-                This link will expire within{" "}
-                {exp("linkExpirationFormatter(linkExpiration)")}. If you don&apos;t want
-                to join the organization, just ignore this message.
+                You have an invitation to join {exp("organization.name")}. Click on the
+                button below to accept the invitation:
+                {/* <Link href={exp("link")}>this link</Link> to join. */}
             </p>
         </Text>
-        <Container style={containerStyle}>
-            <p style={{ color: "#1F2328", textAlign: "left" }}>
-                If you have any concerns, please take a look at the current{" "}
-                <Link href="#">Support Policy</Link>, which contains detailed information
-                on how to get access to our Customer Support Team.
-            </p>
+        <Container>
+            <Button
+                height={32}
+                width={130}
+                href={exp("link")}
+                align="left"
+                fontSize={14}
+                borderRadius={6}
+                style={{
+                    backgroundColor: "#0969DA",
+                    color: "#FFFFFF"
+                }}
+            >
+                Accept Invitation
+            </Button>
         </Container>
+        <Text style={paragraph}>
+            <p style={{ color: "#1F2328" }}>
+                This link will expire within{" "}
+                {exp("linkExpirationFormatter(linkExpiration)")}. If you didn&apos;t
+                expect this invitation, you can safely ignore this email or if you think
+                this is an abuse, please report to{" "}
+                <Link href="mailto:support@onedesk.so">support@onedesk.so</Link>
+            </p>
+        </Text>
     </EmailLayout>
 );
 
@@ -68,5 +73,5 @@ export const getTemplate: GetTemplate = async props => {
 };
 
 export const getSubject: GetSubject = async _props => {
-    return "Invitation to join the {0} organization";
+    return "You are invited to join {0} .";
 };
