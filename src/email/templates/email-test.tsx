@@ -5,22 +5,6 @@ import { GetSubject, GetTemplate, GetTemplateProps } from "keycloakify-emails";
 
 interface TemplateProps extends Omit<GetTemplateProps, "plainText"> {}
 
-const paragraph = {
-    color: "#1F2328",
-    fontSize: "14px",
-    lineHeight: "20px",
-    textAlign: "left" as const
-};
-
-const containerStyle = {
-    padding: "0px 16px 0px 16px",
-    backgroundColor: "#F6F8FA",
-    border: "1px solid #D1D9E0B2",
-    borderRadius: "8px",
-    marginBottom: "24px",
-    marginTop: "24px"
-};
-
 export const previewProps: TemplateProps = {
     locale: "en",
     themeName: "vanilla"
@@ -41,12 +25,10 @@ export const Template = ({ locale }: TemplateProps) => (
         <Container>
             <Img src={`${baseUrl}/kc-logo.png`} alt="KC Logo" width="83" height="75" />
         </Container>
-        <p style={paragraph}>This is a test message from {exp("realmName")}</p>
-        <p style={paragraph}>
-            This is the current value of MY_ENV: {exp("properties.MY_ENV")}
-        </p>
-        <Container style={containerStyle}>
-            <p style={{ color: "#1F2328", textAlign: "left" }}>
+        <p>This is a test message from {exp("realmName")}</p>
+        <p>This is the current value of MY_ENV: {exp("properties.MY_ENV")}</p>
+        <Container>
+            <p>
                 If you have any concerns, please take a look at the current{" "}
                 <Link href="#">Support Policy</Link>, which contains detailed information
                 on how to get access to our Customer Support Team.

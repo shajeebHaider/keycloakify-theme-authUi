@@ -1,26 +1,11 @@
-import { Button, Container, Link, Text, render } from "jsx-email";
+import { Container, Link, Text, render } from "jsx-email";
 import { EmailLayout } from "../layout";
 import { GetSubject, GetTemplate, GetTemplateProps } from "keycloakify-emails";
 import { createVariablesHelper } from "keycloakify-emails/variables";
 import * as Fm from "keycloakify-emails/jsx-email";
+import ButtonConfirm from "../component/ButtonConfirm";
 
 interface TemplateProps extends Omit<GetTemplateProps, "plainText"> {}
-
-const paragraph = {
-    color: "#1F2328",
-    fontSize: "14px",
-    lineHeight: "20px",
-    textAlign: "left" as const
-};
-
-// const containerStyle = {
-//     padding: "0px 16px 0px 16px",
-//     backgroundColor: "#F6F8FA",
-//     border: "1px solid #D1D9E0B2",
-//     borderRadius: "8px",
-//     marginBottom: "24px",
-//     marginTop: "24px"
-// };
 
 export const previewProps: TemplateProps = {
     locale: "en",
@@ -37,40 +22,24 @@ export const Template = ({ locale }: TemplateProps) => (
         preview={`We received a request to reset your password`}
         locale={locale}
     >
-        <Text style={paragraph}>
+        <Text>
             <Fm.If condition={`${v("user.firstName")}?? && ${v("user.lastName")}??`}>
-                <p style={{ marginTop: "-16px", color: "#1F2328" }}>
+                <Text className="-mt-4">
                     Hello {exp("user.firstName")} {exp("user.lastName")},
-                </p>
+                </Text>
             </Fm.If>
-            <p style={{ color: "#1F2328" }}>
+            <Text>
                 We received a request to reset your password for your {exp("realmName")}{" "}
                 account. Click the button below to choose a new password:
-            </p>
+            </Text>
         </Text>
         <Container>
-            <Button
-                height={32}
-                width={130}
-                href={exp("link")}
-                align="left"
-                fontSize={14}
-                borderRadius={6}
-                style={{
-                    backgroundColor: "#0969DA",
-                    color: "#FFFFFF"
-                }}
-            >
-                Reset Password
-            </Button>
+            <ButtonConfirm href={exp("link")} text="Reset Password" />
         </Container>
-        <Text style={paragraph}>
-            <p style={{ color: "#1F2328" }}>
-                This link will expire within{" "}
-                {exp("linkExpirationFormatter(linkExpiration)")}. If you didn&apos;t
-                request this, please report to{" "}
-                <Link href="mailto:support@onedesk.so">support@onedesk.so</Link>
-            </p>
+        <Text>
+            This link will expire within {exp("linkExpirationFormatter(linkExpiration)")}.
+            If you didn&apos;t request this, please report to{" "}
+            <Link href="mailto:support@onedesk.so">support@onedesk.so</Link>
         </Text>
     </EmailLayout>
 );

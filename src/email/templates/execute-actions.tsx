@@ -1,18 +1,12 @@
-import { Button, Container, Link, render, Text } from "jsx-email";
+import { Container, Link, render, Text } from "jsx-email";
 import { GetSubject, GetTemplate, GetTemplateProps } from "keycloakify-emails";
 import * as Fm from "keycloakify-emails/jsx-email";
 import { ReactNode } from "react";
 import { createVariablesHelper } from "keycloakify-emails/variables";
 import { EmailLayout } from "../layout";
+import ButtonConfirm from "../component/ButtonConfirm";
 
 interface TemplateProps extends Omit<GetTemplateProps, "plainText"> {}
-
-const paragraph = {
-    color: "#1F2328",
-    fontSize: "14px",
-    lineHeight: "20px",
-    textAlign: "left" as const
-};
 
 // Helper component to create a Freemarker expression for the list
 const FmList = (props: { value: string; itemAs: string; children: ReactNode }) => (
@@ -33,11 +27,11 @@ export const Template = ({ locale }: TemplateProps) => (
         preview={`Your administrator has requested that you update your account`}
         locale={locale}
     >
-        <Text style={paragraph}>
+        <Text>
             <Fm.If condition={`${v("user.firstName")}?? && ${v("user.lastName")}??`}>
-                <p style={{ marginTop: "-16px", color: "#1F2328" }}>
+                <Text className="-mt-4">
                     Hello {exp("user.firstName")} {exp("user.lastName")},
-                </p>
+                </Text>
             </Fm.If>
             Your administrator has just requested that you update your {exp("realmName")}{" "}
             account by performing the following action(s):
@@ -71,34 +65,16 @@ export const Template = ({ locale }: TemplateProps) => (
             </Fm.If>
         </Text>
         <Text>
-            <p style={{ color: "#1F2328" }}>
-                Click on <Link href={exp("link")}>the button below</Link> to start this
-                process.
-            </p>
+            Click on <Link href={exp("link")}>the button below</Link> to start this
+            process.
         </Text>
         <Container>
-            <Button
-                height={32}
-                width={130}
-                href={exp("link")}
-                align="left"
-                fontSize={14}
-                borderRadius={6}
-                style={{
-                    backgroundColor: "#0969DA",
-                    color: "#FFFFFF"
-                }}
-            >
-                Start Now
-            </Button>
+            <ButtonConfirm href={exp("link")} text="Start Now" />
         </Container>
         <Text>
-            <p style={{ color: "#1F2328" }}>
-                This link will expire within{" "}
-                {exp("linkExpirationFormatter(linkExpiration)")}. If you are unaware that
-                your administrator has requested this, just ignore this message and
-                nothing will be changed.
-            </p>
+            This link will expire within {exp("linkExpirationFormatter(linkExpiration)")}.
+            If you are unaware that your administrator has requested this, just ignore
+            this message and nothing will be changed.
         </Text>
     </EmailLayout>
 );

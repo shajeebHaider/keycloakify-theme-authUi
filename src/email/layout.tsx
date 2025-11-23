@@ -7,44 +7,11 @@ import {
     Link,
     Preview,
     Section,
-    Text
+    Text,
+    Tailwind
 } from "jsx-email";
 import type { PropsWithChildren, ReactNode } from "react";
 import "../assets/css/app.css";
-
-const main = {
-    backgroundColor: "#F6F8FA",
-    padding: "40px",
-    fontFamily: "sans-serif",
-    fontSize: "14px",
-    lineHeight: "20px",
-    fontColor: "#1F2328"
-};
-
-const container = {
-    padding: "40px",
-    backgroundColor: "#ffffff",
-    margin: "0 auto",
-    marginBottom: "64px",
-    borderRadius: "15px",
-    border: "1px solid #D1D9E0",
-    textAlign: "left" as const
-};
-
-const image = {
-    margin: "0 auto",
-    marginBottom: "32px"
-};
-
-const box = {
-    padding: "0 0"
-};
-
-const footer = {
-    margin: "0 auto",
-    textAlign: "center" as const,
-    alignItems: "center"
-};
 
 export const EmailLayout = ({
     userEmail,
@@ -62,65 +29,69 @@ export const EmailLayout = ({
         <Html lang={locale}>
             <Head />
             <Preview>{preview}</Preview>
-            <Body style={main}>
-                <Container style={image} alignment="center">
-                    <Img
-                        style={{ height: "41px", width: "189px" }}
-                        src={logoUrl}
-                        alt="Keycloakify"
-                    />
-                </Container>
-                <Container style={container} alignment="left">
-                    <Section style={box}>{children}</Section>
-                    <p
-                        style={{
-                            textAlign: "left" as const,
-                            color: "#1F2328",
-                            marginTop: "0px"
-                        }}
-                    >
-                        Best regards,
-                        <br />
-                        The Onedesk team
-                    </p>
-                </Container>
-                <Container style={footer} alignment="center">
-                    <Text style={{ marginBottom: "40px", color: "#1F2328" }}>
-                        This email was sent to{" "}
-                        <Link href={`mailto:${userEmail}`}>{userEmail}</Link>
-                    </Text>
-                    <Img
-                        style={{ marginBottom: "24px", height: "41px", width: "189px" }}
-                        src={logoUrl}
-                        alt="Keycloakify"
-                    />
-                    <Text
-                        style={{
-                            color: "#59646E",
-                            marginBottom: "16px",
-                            marginTop: "0px"
-                        }}
-                    >
-                        2810 North Church Street, PMB 38894
-                        <br />
-                        Wilmington, DE 19802, United States
-                    </Text>
-                    <Container
-                        style={{
-                            textAlign: "center",
-                            margin: "0 auto"
-                        }}
-                    >
-                        <Link style={{ marginRight: "8px" }} href="https://onedesk.so">
-                            Contact us
-                        </Link>
-                        <span style={{ color: "#D1D9E0B2" }}>|</span>
-                        <Link style={{ marginLeft: "8px" }} href="https://onedesk.so">
-                            Privacy Policy
-                        </Link>
+            <Tailwind
+                config={{
+                    theme: {
+                        extend: {
+                            colors: {
+                                default: "#ffffff",
+                                text: "#1F2328",
+                                email: "#f6f8fa",
+                                textmuted: "#59646e",
+                                bordermuted: "#d1d9e0"
+                            }
+                        }
+                    }
+                }}
+            >
+                <Body className="p-10 bg-email leading-5 text-text font-sans text-sm">
+                    <Container className="mx-auto mb-8" alignment="center">
+                        <Img width={189} height={40} src={logoUrl} alt="onedesk logo" />
                     </Container>
-                </Container>
-            </Body>
+                    <Container
+                        className="p-10 bg-default mx-auto mb-16 rounded-2xl text-left"
+                        alignment="left"
+                        style={{
+                            border: "1px solid #d1d9e0"
+                        }}
+                    >
+                        <Section className="p-0">{children}</Section>
+                        <p className="text-text mt-0 text-left">
+                            Best regards,
+                            <br />
+                            The Onedesk team
+                        </p>
+                    </Container>
+                    <Container className="mx-auto text-center" alignment="center">
+                        <Text className="mb-10 text-text">
+                            This email was sent to{" "}
+                            <Link href={`mailto:${userEmail}`}>{userEmail}</Link>
+                        </Text>
+                        <Img
+                            className="mb-6"
+                            width={189}
+                            height={40}
+                            src={logoUrl}
+                            alt="Keycloakify"
+                        />
+                        <Text className="text-textmuted mb-4 mt-0">
+                            2810 North Church Street, PMB 38894
+                            <br />
+                            Wilmington, DE 19802, United States
+                        </Text>
+                        <Container className="text-center mx-auto">
+                            <Link className="mr-2" href="https://onedesk.so">
+                                Contact us
+                            </Link>
+
+                            <span className="text-bordermuted opacity-70">|</span>
+                            <Link className="ml-2" href="https://onedesk.so">
+                                Privacy Policy
+                            </Link>
+                        </Container>
+                    </Container>
+                </Body>
+            </Tailwind>
         </Html>
     );
 };
